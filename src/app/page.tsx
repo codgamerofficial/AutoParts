@@ -16,7 +16,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
         <Image
-          src="https://i.ibb.co/mSgYJjF/sunder-muthukumaran-K8-Zty-TUCu-PI-unsplash-1.jpg"
+          src="https://i.ibb.co/fYTKqr6v/homethumb.jpg"
           alt="Close-up of a clean car engine"
           fill
           objectFit="cover"
