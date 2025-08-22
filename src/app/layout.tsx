@@ -7,12 +7,6 @@ import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { SplashScreen } from '@/components/layout/SplashScreen';
 import { useState, useEffect } from 'react';
-import type { Metadata } from 'next';
-
-const metadata: Metadata = {
-  title: 'AutoParts.com - Quality Auto Parts',
-  description: 'Your reliable source for high-quality auto parts and accessories.',
-};
 
 export default function RootLayout({
   children,
@@ -20,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isSplashing, setIsSplashing] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const timer = setTimeout(() => {
       setIsSplashing(false);
     }, 2000); // Splash screen will be visible for 2 seconds
@@ -30,16 +26,16 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className="scroll-smooth dark">
+    <html lang="en" className={isMounted ? "scroll-smooth dark" : "scroll-smooth"}>
       <head>
-        <title>{String(metadata.title)}</title>
-        <meta name="description" content={String(metadata.description)} />
+        <title>AutoParts.com - Quality Auto Parts</title>
+        <meta name="description" content="Your reliable source for high-quality auto parts and accessories." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased animated-background">
+      <body className={isMounted ? "font-body antialiased animated-background" : "font-body antialiased"}>
         <SplashScreen isVisible={isSplashing} />
         {!isSplashing && (
           <div className="flex flex-col min-h-screen bg-background/80 backdrop-blur-sm">
