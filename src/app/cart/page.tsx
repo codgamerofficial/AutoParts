@@ -42,12 +42,15 @@ export default function CartPage() {
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
 
   return (
     <div className="container py-12">
-      <h1 className="text-4xl font-extrabold font-headline mb-8">Your Shopping Cart</h1>
+      <h1 className="text-4xl font-extrabold font-headline mb-8">
+        Your Shopping Cart ({totalItems} {totalItems === 1 ? 'item' : 'items'})
+      </h1>
       {cartItems.length === 0 ? (
         <div className="text-center py-16 border rounded-lg">
           <h2 className="text-2xl font-semibold">Your cart is empty</h2>
