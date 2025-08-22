@@ -1,4 +1,7 @@
 
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
@@ -7,12 +10,37 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
+import type { Product } from "@/lib/types";
+
+type CartItem = Product & { quantity: number };
 
 export default function CartPage() {
-  const cartItems = products.slice(0, 3).map((product, index) => ({
-    ...product,
-    quantity: index + 1,
-  }));
+  const { toast } = useToast();
+  const [cartItems, setCartItems] = useState<CartItem[]>(
+    products.slice(0, 3).map((product, index) => ({
+      ...product,
+      quantity: index + 1,
+    }))
+  );
+
+  const handleQuantityChange = (productId: string, quantity: number) => {
+    const newQuantity = Math.max(1, quantity); // Ensure quantity is at least 1
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const handleRemoveItem = (productId: string, productName: string) => {
+    setCartItems(cartItems.filter((item) => item.id !== productId));
+    toast({
+      title: "Item Removed",
+      description: `${productName} has been removed from your cart.`,
+    });
+  };
+
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
@@ -46,8 +74,19 @@ export default function CartPage() {
                     <p className="text-lg font-bold text-primary mt-1">${item.price.toFixed(2)}</p>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <Input type="number" value={item.quantity} className="w-16 h-9 text-center" readOnly />
-                    <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive">
+                    <Input
+                      type="number"
+                      value={item.quantity}
+                      onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value, 10))}
+                      className="w-16 h-9 text-center"
+                      min="1"
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-muted-foreground hover:text-destructive"
+                      onClick={() => handleRemoveItem(item.id, item.name)}
+                    >
                       <Trash2 className="h-5 w-5" />
                     </Button>
                   </div>
