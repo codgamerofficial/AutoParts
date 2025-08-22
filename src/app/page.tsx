@@ -22,12 +22,12 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
         <Image
-          src="https://i.ibb.co/fYTKqr6v/homethumb.jpg"
-          alt="Close-up of a clean car engine"
+          src="https://placehold.co/1600x900.png"
+          alt="Modern sports car"
           fill
           objectFit="cover"
           className="z-0 brightness-50"
-          data-ai-hint="car engine close-up"
+          data-ai-hint="modern car"
         />
         <div className="relative z-10 p-4 container px-8">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
