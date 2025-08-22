@@ -18,10 +18,10 @@ import { Separator } from "@/components/ui/separator";
 import type { Product } from "@/lib/types";
 
 interface ShopPageProps {
-  handleAddToWishlist: (product: Product) => void;
+  onAddToWishlist: (product: Product) => void;
 }
 
-export default function ShopPage({ handleAddToWishlist }: ShopPageProps) {
+export default function ShopPage({ onAddToWishlist }: ShopPageProps) {
   const [sortOption, setSortOption] = useState("featured");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -153,7 +153,7 @@ export default function ShopPage({ handleAddToWishlist }: ShopPageProps) {
           {filteredAndSortedProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredAndSortedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} onAddToWishlist={handleAddToWishlist} />
+                <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} />
               ))}
             </div>
           ) : (

@@ -10,10 +10,10 @@ import { ProductCard } from "@/components/shop/ProductCard";
 import type { Product } from "@/lib/types";
 
 interface HomePageProps {
-  handleAddToWishlist: (product: Product) => void;
+  onAddToWishlist: (product: Product) => void;
 }
 
-export default function Home({ handleAddToWishlist }: HomePageProps) {
+export default function Home({ onAddToWishlist }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
 
   return (
@@ -89,7 +89,7 @@ export default function Home({ handleAddToWishlist }: HomePageProps) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onAddToWishlist={handleAddToWishlist} />
+            <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} />
           ))}
         </div>
       </section>

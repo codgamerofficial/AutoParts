@@ -30,10 +30,10 @@ type ProductPageProps = {
   params: {
     slug: string;
   };
-  handleAddToWishlist: (product: Product) => void;
+  onAddToWishlist: (product: Product) => void;
 };
 
-export default function ProductPage({ params, handleAddToWishlist }: ProductPageProps) {
+export default function ProductPage({ params, onAddToWishlist }: ProductPageProps) {
   const { toast } = useToast();
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
@@ -50,8 +50,8 @@ export default function ProductPage({ params, handleAddToWishlist }: ProductPage
   };
 
   const onWishlistClick = () => {
-    if (handleAddToWishlist) {
-        handleAddToWishlist(product);
+    if (onAddToWishlist) {
+        onAddToWishlist(product);
         toast({
             title: "Added to wishlist",
             description: `${product.name} has been added to your wishlist.`,
@@ -215,7 +215,7 @@ export default function ProductPage({ params, handleAddToWishlist }: ProductPage
       <Separator className="my-16" />
 
       {/* AI Recommendations */}
-      <AiRecommendations productId={product.id} productName={product.name} onAddToWishlist={handleAddToWishlist} />
+      <AiRecommendations productId={product.id} productName={product.name} onAddToWishlist={onAddToWishlist} />
     </div>
   );
 }

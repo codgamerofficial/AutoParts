@@ -73,8 +73,10 @@ export default function RootLayout({
       // @ts-ignore - cloning to pass props
       return React.cloneElement(child, {
         wishlist,
+        onAddToWishlist: handleAddToWishlist,
         handleAddToWishlist,
-        handleRemoveFromWishlist
+        onRemoveFromWishlist: handleRemoveFromWishlist,
+        handleRemoveFromWishlist,
       });
     }
     return child;

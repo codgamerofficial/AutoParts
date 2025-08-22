@@ -11,10 +11,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface WishlistPageProps {
   wishlist?: Product[];
-  handleRemoveFromWishlist?: (productId: string) => void;
+  onRemoveFromWishlist?: (productId: string) => void;
 }
 
-export default function WishlistPage({ wishlist = [], handleRemoveFromWishlist }: WishlistPageProps) {
+export default function WishlistPage({ wishlist = [], onRemoveFromWishlist }: WishlistPageProps) {
   const { toast } = useToast();
 
   const handleAddToCart = (product: Product) => {
@@ -26,8 +26,8 @@ export default function WishlistPage({ wishlist = [], handleRemoveFromWishlist }
   };
 
   const handleRemoveClick = (productId: string, productName: string) => {
-    if (handleRemoveFromWishlist) {
-      handleRemoveFromWishlist(productId);
+    if (onRemoveFromWishlist) {
+      onRemoveFromWishlist(productId);
       toast({
         title: "Removed from wishlist",
         description: `${productName} has been removed from your wishlist.`,
@@ -35,6 +35,14 @@ export default function WishlistPage({ wishlist = [], handleRemoveFromWishlist }
       });
     }
   };
+
+  if (!wishlist) {
+    return (
+        <div className="container py-12 text-center">
+            <p>Loading wishlist...</p>
+        </div>
+    )
+  }
 
   return (
     <div className="container py-12">
