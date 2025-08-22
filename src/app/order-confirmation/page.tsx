@@ -23,7 +23,7 @@ export default function OrderConfirmationPage() {
   const total = subtotal + tax;
 
   return (
-    <div className="container py-16">
+    <div className="container px-4 sm:px-6 lg:px-8 py-16">
       <Card className="max-w-2xl mx-auto">
         <CardHeader className="text-center">
           <div className="mx-auto bg-green-100 rounded-full p-3 w-fit">

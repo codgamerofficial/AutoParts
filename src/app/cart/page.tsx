@@ -42,7 +42,7 @@ export default function CartPage({ cartItems = [], onRemoveFromCart, onUpdateCar
   const total = subtotal + tax;
 
   return (
-    <div className="container py-12">
+    <div className="container px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-4xl font-extrabold font-headline mb-8">
         Your Shopping Cart ({totalItems} {totalItems === 1 ? 'item' : 'items'})
       </h1>

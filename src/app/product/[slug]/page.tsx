@@ -29,8 +29,8 @@ type ProductPageProps = {
   params: {
     slug: string;
   };
-  onAddToWishlist?: (product: Product) => void;
-  onAddToCart?: (product: Product) => void;
+  onAddToWishlist: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 };
 
 export default function ProductPage({ params: paramsPromise, onAddToWishlist, onAddToCart }: ProductPageProps) {
@@ -43,19 +43,19 @@ export default function ProductPage({ params: paramsPromise, onAddToWishlist, on
   }
 
   const handleAddToCartClick = () => {
-    if (onAddToCart && product) {
+    if (onAddToCart) {
       onAddToCart(product);
     }
   };
 
   const onWishlistClick = () => {
-    if (onAddToWishlist && product) {
+    if (onAddToWishlist) {
         onAddToWishlist(product);
     }
   }
 
   return (
-    <div className="container py-12">
+    <div className="container px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid md:grid-cols-2 gap-12">
         {/* Product Images */}
         <div>

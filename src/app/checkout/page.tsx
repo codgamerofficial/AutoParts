@@ -34,7 +34,7 @@ export default function CheckoutPage() {
     };
 
   return (
-    <div className="container py-12 md:py-16">
+    <div className="container px-4 sm:px-6 lg:px-8 py-12 md:py-16">
       <div className="text-center">
         <h1 className="text-3xl md:text-4xl font-extrabold font-headline mb-4">Checkout</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">

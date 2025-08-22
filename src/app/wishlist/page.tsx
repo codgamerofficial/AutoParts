@@ -10,9 +10,9 @@ import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast";
 
 interface WishlistPageProps {
-  wishlist?: Product[];
-  onRemoveFromWishlist?: (productId: string) => void;
-  onAddToCart?: (product: Product) => void;
+  wishlist: Product[];
+  onRemoveFromWishlist: (productId: string) => void;
+  onAddToCart: (product: Product) => void;
 }
 
 export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAddToCart }: WishlistPageProps) {
@@ -37,14 +37,14 @@ export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAd
 
   if (!wishlist) {
     return (
-        <div className="container py-12 text-center">
+        <div className="container px-4 sm:px-6 lg:px-8 py-12 text-center">
             <p>Loading wishlist...</p>
         </div>
     )
   }
 
   return (
-    <div className="container py-12">
+    <div className="container px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-4xl font-extrabold font-headline">Your Wishlist</h1>
         <Heart className="h-8 w-8 text-destructive fill-destructive" />

@@ -25,8 +25,8 @@ import { Button } from "@/components/ui/button";
 import { Filter } from "lucide-react";
 
 interface ShopPageProps {
-  onAddToWishlist?: (product: Product) => void;
-  onAddToCart?: (product: Product) => void;
+  onAddToWishlist: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 }
 
 export default function ShopPage({ onAddToWishlist, onAddToCart }: ShopPageProps) {
@@ -143,7 +143,7 @@ export default function ShopPage({ onAddToWishlist, onAddToCart }: ShopPageProps
   );
 
   return (
-    <div className="container py-8">
+    <div className="container px-4 sm:px-6 lg:px-8 py-8">
       <header className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-3xl md:text-4xl font-extrabold font-headline tracking-tight">

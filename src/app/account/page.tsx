@@ -53,7 +53,7 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="container py-12">
+    <div className="container px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-4xl font-extrabold font-headline mb-8">My Account</h1>
       <Tabs defaultValue="orders" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
