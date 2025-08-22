@@ -25,7 +25,7 @@ export default function AboutPage() {
           </div>
           <div>
             <Image
-              src="https://placehold.co/600x400.png"
+              src="https://images.unsplash.com/photo-1579828819445-5635384c0535?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3YXJlaG91c2UlMjBjYXIlMjBwYXJ0c3xlbnwwfHx8fDE3NTU4NTU1MzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
               alt="AutoParts.com warehouse"
               width={600}
               height={400}
