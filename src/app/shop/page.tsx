@@ -1,3 +1,4 @@
+
 import { products, categories } from "@/lib/data";
 import { ProductCard } from "@/components/shop/ProductCard";
 import {
@@ -43,9 +44,9 @@ export default function ShopPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="featured">Featured</SelectItem>
+                    <SelectItem value="popular">Popular</SelectItem>
                     <SelectItem value="price-asc">Price: Low to High</SelectItem>
                     <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                    <SelectItem value="newest">Newest</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
