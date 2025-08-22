@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -13,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface AiRecommendationsProps {
   productId: string;
   productName: string;
+  onAddToWishlist: (product: Product) => void;
 }
 
 type RecommendationState = {
@@ -20,7 +22,7 @@ type RecommendationState = {
   products: Product[];
 } | null;
 
-export default function AiRecommendations({ productId, productName }: AiRecommendationsProps) {
+export default function AiRecommendations({ productId, productName, onAddToWishlist }: AiRecommendationsProps) {
   const [recommendations, setRecommendations] = useState<RecommendationState>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -93,7 +95,7 @@ export default function AiRecommendations({ productId, productName }: AiRecommen
             {recommendations.products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recommendations.products.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} />
                 ))}
               </div>
             ) : (

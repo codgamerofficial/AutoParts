@@ -24,14 +24,16 @@ import { Separator } from "@/components/ui/separator";
 import AiRecommendations from "@/components/product/AiRecommendations";
 import { useToast } from "@/hooks/use-toast";
 import React from "react";
+import type { Product } from "@/lib/types";
 
 type ProductPageProps = {
   params: {
     slug: string;
   };
+  handleAddToWishlist: (product: Product) => void;
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage({ params, handleAddToWishlist }: ProductPageProps) {
   const { toast } = useToast();
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
@@ -46,6 +48,16 @@ export default function ProductPage({ params }: ProductPageProps) {
       description: `${product.name} has been added to your cart.`,
     });
   };
+
+  const onWishlistClick = () => {
+    if (handleAddToWishlist) {
+        handleAddToWishlist(product);
+        toast({
+            title: "Added to wishlist",
+            description: `${product.name} has been added to your wishlist.`,
+        });
+    }
+  }
 
   return (
     <div className="container py-12">
@@ -117,7 +129,7 @@ export default function ProductPage({ params }: ProductPageProps) {
             >
               Add to Cart
             </Button>
-            <Button size="lg" variant="outline" className="px-4">
+            <Button size="lg" variant="outline" className="px-4" onClick={onWishlistClick}>
               <Heart className="h-6 w-6" />
               <span className="sr-only">Add to Wishlist</span>
             </Button>
@@ -203,7 +215,7 @@ export default function ProductPage({ params }: ProductPageProps) {
       <Separator className="my-16" />
 
       {/* AI Recommendations */}
-      <AiRecommendations productId={product.id} productName={product.name} />
+      <AiRecommendations productId={product.id} productName={product.name} onAddToWishlist={handleAddToWishlist} />
     </div>
   );
 }
