@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Landmark, IndianRupee } from "lucide-react";
+import { CreditCard, Landmark, IndianRupee, Wallet } from "lucide-react";
 
 export default function CheckoutPage() {
     const [paymentMethod, setPaymentMethod] = useState("card");
@@ -20,7 +20,7 @@ export default function CheckoutPage() {
     const total = subtotal + tax;
 
   return (
-    <div className="container py-12">
+    <div className="container py-16">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold font-headline mb-4">Checkout</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -28,7 +28,7 @@ export default function CheckoutPage() {
         </p>
       </div>
 
-      <div className="mt-12 grid lg:grid-cols-3 gap-8">
+      <div className="mt-12 grid lg:grid-cols-3 gap-12">
         {/* Shipping and Payment Forms */}
         <div className="lg:col-span-2 space-y-8">
           <Card>
@@ -69,7 +69,7 @@ export default function CheckoutPage() {
               <CardDescription>Select a payment option</CardDescription>
             </CardHeader>
             <CardContent>
-              <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-4">
+              <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Label
                   htmlFor="payment-card"
                   className={`flex items-center space-x-4 p-4 rounded-md border cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-primary ring-2 ring-primary' : ''}`}
@@ -100,7 +100,18 @@ export default function CheckoutPage() {
                    <Landmark className="h-6 w-6" />
                    <div className="flex-grow">
                      <p className="font-semibold">Online Banking</p>
-                      <p className="text-sm text-muted-foreground">Redirect to your bank's website</p>
+                      <p className="text-sm text-muted-foreground">For US & International banks</p>
+                   </div>
+                </Label>
+                 <Label
+                  htmlFor="payment-paypal"
+                  className={`flex items-center space-x-4 p-4 rounded-md border cursor-pointer transition-all ${paymentMethod === 'paypal' ? 'border-primary ring-2 ring-primary' : ''}`}
+                >
+                   <RadioGroupItem value="paypal" id="payment-paypal" />
+                   <Wallet className="h-6 w-6" />
+                   <div className="flex-grow">
+                     <p className="font-semibold">Digital Wallet</p>
+                      <p className="text-sm text-muted-foreground">Use PayPal or similar services</p>
                    </div>
                 </Label>
               </RadioGroup>
@@ -133,6 +144,11 @@ export default function CheckoutPage() {
                  {paymentMethod === "bank" && (
                     <div className="text-center">
                        <Button className="w-full">Proceed to Bank</Button>
+                    </div>
+                )}
+                 {paymentMethod === "paypal" && (
+                    <div className="text-center">
+                       <Button className="w-full">Proceed to PayPal</Button>
                     </div>
                 )}
               </div>
