@@ -110,25 +110,15 @@ export function Header({ user, onLogout, onLoginClick, wishlistCount, cartCount 
               />
             </div>
           </div>
-          <Button variant="ghost" size="icon" asChild className="relative">
+          <Button variant="ghost" size="icon" asChild>
             <Link href="/wishlist">
               <Heart className="h-5 w-5" />
-              {wishlistCount > 0 && (
-                <Badge variant="destructive" className="absolute -top-1 -right-1 h-4 w-4 justify-center rounded-full p-0 text-xs">
-                  {wishlistCount}
-                </Badge>
-              )}
               <span className="sr-only">Wishlist</span>
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" asChild className="relative">
+          <Button variant="ghost" size="icon" asChild>
             <Link href="/cart">
               <ShoppingCart className="h-5 w-5" />
-               {cartCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-4 w-4 justify-center rounded-full p-0 text-xs">
-                  {cartCount}
-                </Badge>
-              )}
               <span className="sr-only">Shopping Cart</span>
             </Link>
           </Button>
