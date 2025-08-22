@@ -1,22 +1,37 @@
 
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Heart } from "lucide-react";
+import React from "react";
 
 import type { Product } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   product: Product;
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { toast } = useToast();
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg group">
-      <Link href={`/product/${product.slug}`} className="block">
+      <Link href={`/product/${product.slug}`} className="flex flex-col flex-grow">
         <CardHeader className="p-0 relative">
           <Image
             src={product.images[0]}
@@ -35,7 +50,7 @@ export function ProductCard({ product }: ProductCardProps) {
           </Button>
         </CardHeader>
         <CardContent className="p-4 flex-grow">
-          <h3 className="font-headline font-semibold text-lg leading-tight truncate group-hover:text-primary">{product.name}</h3>
+          <h3 className="font-headline font-semibold text-lg leading-tight group-hover:text-primary">{product.name}</h3>
           <p className="text-sm text-muted-foreground mt-1">{product.brand}</p>
           <div className="flex items-center mt-2">
             <div className="flex items-center">
@@ -56,10 +71,10 @@ export function ProductCard({ product }: ProductCardProps) {
             <span className="text-xs text-muted-foreground ml-2">({product.reviews.length} reviews)</span>
           </div>
         </CardContent>
-        <CardFooter className="p-4 pt-0 flex justify-between items-center">
+        <CardFooter className="p-4 pt-0 mt-auto flex justify-between items-center">
           <p className="text-xl font-bold font-headline text-primary">${product.price.toFixed(2)}</p>
-          <Button size="sm" variant="secondary">
-            View Details
+           <Button size="sm" variant="secondary" onClick={handleAddToCart}>
+            Add to Cart
           </Button>
         </CardFooter>
       </Link>
