@@ -30,6 +30,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { VisuallyHidden } from "@/components/ui/visually-hidden";
+
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -83,9 +85,14 @@ export function AuthModal({ isOpen, onOpenChange, onLoginSuccess }: AuthModalPro
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-headline">Welcome!</DialogTitle>
-          <DialogDescription className="text-center">
+        <DialogHeader className="text-center">
+           <VisuallyHidden>
+            <DialogTitle>Account Authentication</DialogTitle>
+          </VisuallyHidden>
+          <DialogDescription className="text-xl font-headline">
+            Welcome!
+          </DialogDescription>
+          <DialogDescription>
             Sign in or create an account to continue.
           </DialogDescription>
         </DialogHeader>
