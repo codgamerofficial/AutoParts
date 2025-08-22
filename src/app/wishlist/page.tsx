@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Heart, Trash2 } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
 interface WishlistPageProps {
@@ -18,7 +18,7 @@ interface WishlistPageProps {
 export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAddToCart }: WishlistPageProps) {
   const { toast } = useToast();
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCartClick = (product: Product) => {
     if (onAddToCart) {
       onAddToCart(product);
     }
@@ -77,9 +77,9 @@ export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAd
                 <p className="text-sm text-muted-foreground mt-1">{item.brand}</p>
                 <p className="text-xl font-bold font-headline text-primary mt-2">${item.price.toFixed(2)}</p>
               </CardContent>
-              <CardHeader className="p-4 pt-0">
+              <CardFooter className="p-4 pt-0">
                 <div className="flex justify-between items-center gap-2">
-                    <Button size="sm" className="w-full" onClick={() => handleAddToCart(item)}>Add to Cart</Button>
+                    <Button size="sm" className="w-full" onClick={() => handleAddToCartClick(item)}>Add to Cart</Button>
                     <Button 
                       variant="outline" 
                       size="icon" 
@@ -89,7 +89,7 @@ export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAd
                       <Trash2 className="h-4 w-4" />
                     </Button>
                 </div>
-              </CardHeader>
+              </CardFooter>
             </Card>
           ))}
         </div>
