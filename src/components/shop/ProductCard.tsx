@@ -29,6 +29,15 @@ export function ProductCard({ product }: ProductCardProps) {
     });
   };
 
+  const handleAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toast({
+      title: "Added to wishlist",
+      description: `${product.name} has been added to your wishlist.`,
+    });
+  };
+
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg group">
       <Link href={`/product/${product.slug}`} className="flex flex-col flex-grow">
@@ -44,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
           {product.stock < 10 && (
             <Badge variant="destructive" className="absolute top-2 right-2">Low Stock</Badge>
           )}
-          <Button variant="ghost" size="icon" className="absolute top-1 right-1 bg-white/50 backdrop-blur-sm rounded-full text-destructive hover:text-destructive hover:bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity">
+          <Button variant="ghost" size="icon" className="absolute top-1 right-1 bg-white/50 backdrop-blur-sm rounded-full text-destructive hover:text-destructive hover:bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity" onClick={handleAddToWishlist}>
               <Heart className="h-5 w-5"/>
               <span className="sr-only">Add to Wishlist</span>
           </Button>
