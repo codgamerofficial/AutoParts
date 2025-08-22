@@ -1,15 +1,37 @@
 
+"use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Trash2 } from "lucide-react";
 import { products } from "@/lib/data";
+import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useToast } from "@/hooks/use-toast";
 
 export default function WishlistPage() {
+  const { toast } = useToast();
   // Mocking wishlist items. In a real app, this would come from user data.
-  const wishlistItems = products.slice(3, 6);
+  const [wishlistItems, setWishlistItems] = useState<Product[]>(products.slice(3, 6));
+
+  const handleAddToCart = (product: Product) => {
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+    // Here you would typically also call a function to update the cart state
+  };
+
+  const handleRemoveFromWishlist = (productId: string, productName: string) => {
+    setWishlistItems(wishlistItems.filter((item) => item.id !== productId));
+    toast({
+      title: "Removed from wishlist",
+      description: `${productName} has been removed from your wishlist.`,
+      variant: "destructive",
+    });
+  };
 
   return (
     <div className="container py-12">
@@ -47,8 +69,13 @@ export default function WishlistPage() {
               </CardContent>
               <CardHeader className="p-4 pt-0">
                 <div className="flex justify-between items-center gap-2">
-                    <Button size="sm" className="w-full">Add to Cart</Button>
-                    <Button variant="outline" size="icon" className="text-muted-foreground hover:text-destructive">
+                    <Button size="sm" className="w-full" onClick={() => handleAddToCart(item)}>Add to Cart</Button>
+                    <Button 
+                      variant="outline" 
+                      size="icon" 
+                      className="text-muted-foreground hover:text-destructive"
+                      onClick={() => handleRemoveFromWishlist(item.id, item.name)}
+                    >
                       <Trash2 className="h-4 w-4" />
                     </Button>
                 </div>
