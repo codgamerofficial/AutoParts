@@ -30,7 +30,7 @@ export default function RootLayout({
   }, []);
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth dark">
       <head>
         <title>{String(metadata.title)}</title>
         <meta name="description" content={String(metadata.description)} />
@@ -39,10 +39,10 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased animated-background">
         <SplashScreen isVisible={isSplashing} />
         {!isSplashing && (
-          <div className="flex flex-col min-h-screen">
+          <div className="flex flex-col min-h-screen bg-background/80 backdrop-blur-sm">
             <Header />
             <main className="flex-grow">{children}</main>
             <Footer />
