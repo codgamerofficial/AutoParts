@@ -11,7 +11,7 @@ import type { Product } from "@/lib/types";
 
 interface HomePageProps {
   onAddToWishlist: (product: Product) => void;
-  onAddToCart: (product: Product) => void;
+  onAddToCart: (product: Product, quantity?: number) => void;
 }
 
 export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
