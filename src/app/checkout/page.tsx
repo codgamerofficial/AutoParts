@@ -149,18 +149,18 @@ export default function CheckoutPage() {
                   </div>
                 )}
                  {paymentMethod === "bank" && (
-                    <div className="text-center">
-                       <Button className="w-full">Proceed to Bank</Button>
+                    <div className="text-center text-muted-foreground p-4 bg-muted rounded-md">
+                       <p>After clicking "Place Order", you would be redirected to your bank to complete the payment.</p>
                     </div>
                 )}
                  {paymentMethod === "paypal" && (
-                    <div className="text-center">
-                       <Button className="w-full">Proceed to PayPal</Button>
+                    <div className="text-center text-muted-foreground p-4 bg-muted rounded-md">
+                       <p>After clicking "Place Order", you would be redirected to PayPal to complete your purchase.</p>
                     </div>
                 )}
                 {paymentMethod === "cod" && (
-                    <div className="text-center text-muted-foreground">
-                      <p>You can pay when your order is delivered.</p>
+                    <div className="text-center text-muted-foreground p-4 bg-muted rounded-md">
+                      <p>You can pay with cash when your order is delivered.</p>
                     </div>
                 )}
               </div>
