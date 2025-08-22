@@ -34,7 +34,7 @@ export default function Home() {
             <div className="relative">
               <Input
                 placeholder="Search by part name, number, or vehicle..."
-                className="h-12 text-lg pl-5 pr-32 text-black"
+                className="h-12 text-lg pl-5 pr-32 text-foreground"
               />
               <Button className="absolute right-2 top-1/2 -translate-y-1/2" size="sm">
                 <Search className="h-4 w-4 mr-2" />
