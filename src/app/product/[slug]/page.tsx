@@ -33,9 +33,6 @@ type ProductPageProps = {
 
 export default function ProductPage({ params }: ProductPageProps) {
   const { toast } = useToast();
-  // React.use(Promise) is not a real API, but it's a good way to explain the concept
-  // In reality, this will be handled by Next.js in Server Components.
-  // For now, we are in a client component so direct access is fine but this silences the warning.
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
 
