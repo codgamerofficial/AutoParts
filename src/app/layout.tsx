@@ -24,12 +24,7 @@ export default function RootLayout({
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState<{name: string} | null>(null);
   const [wishlist, setWishlist] = useState<Product[]>(products.slice(3, 6)); // Initial mock data
-  const [cartItems, setCartItems] = useState<CartItem[]>(
-     products.slice(0, 3).map((product, index) => ({
-      ...product,
-      quantity: index + 1,
-    }))
-  );
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
 
   useEffect(() => {
@@ -151,8 +146,6 @@ export default function RootLayout({
                 user={user} 
                 onLogout={handleLogout} 
                 onLoginClick={() => setIsAuthModalOpen(true)}
-                wishlistCount={wishlist.length}
-                cartCount={totalCartItems}
               />
               <main className="flex-grow">{childrenWithProps}</main>
               <Footer />
