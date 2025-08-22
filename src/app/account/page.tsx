@@ -1,4 +1,6 @@
 
+"use client";
+
 import {
   Tabs,
   TabsContent,
@@ -14,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 const orders = [
   {
@@ -40,6 +43,15 @@ const orders = [
 
 
 export default function AccountPage() {
+  const { toast } = useToast();
+
+  const handleTrackOrder = (orderId: string) => {
+    toast({
+      title: `Tracking Order ${orderId}`,
+      description: "Your order has been shipped and is on its way. Estimated delivery: 3-5 business days.",
+    });
+  };
+
   return (
     <div className="container py-12">
       <h1 className="text-4xl font-extrabold font-headline mb-8">My Account</h1>
@@ -102,7 +114,7 @@ export default function AccountPage() {
                     </CardContent>
                     <CardFooter className="flex justify-end gap-2">
                         <Button variant="outline">View Order</Button>
-                        <Button>Track Order</Button>
+                        <Button onClick={() => handleTrackOrder(order.id)}>Track Order</Button>
                     </CardFooter>
                   </Card>
                 ))
