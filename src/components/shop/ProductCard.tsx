@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 interface ProductCardProps {
   product: Product;
   onAddToWishlist?: (product: Product) => void;
-  onAddToCart?: (product: Product) => void;
+  onAddToCart?: (product: Product, quantity?: number) => void;
 }
 
 export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCardProps) {
