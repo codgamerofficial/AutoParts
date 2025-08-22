@@ -30,6 +30,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -42,10 +43,11 @@ interface HeaderProps {
   user: { name: string } | null;
   onLogout: () => void;
   onLoginClick: () => void;
+  wishlistCount: number;
 }
 
 
-export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
+export function Header({ user, onLogout, onLoginClick, wishlistCount }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -108,9 +110,14 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
               />
             </div>
           </div>
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild className="relative">
             <Link href="/wishlist">
               <Heart className="h-5 w-5" />
+              {wishlistCount > 0 && (
+                <Badge variant="destructive" className="absolute -top-1 -right-1 h-4 w-4 justify-center rounded-full p-0 text-xs">
+                  {wishlistCount}
+                </Badge>
+              )}
               <span className="sr-only">Wishlist</span>
             </Link>
           </Button>

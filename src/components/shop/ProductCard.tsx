@@ -15,9 +15,10 @@ import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   product: Product;
+  onAddToWishlist: (product: Product) => void;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, onAddToWishlist }: ProductCardProps) {
   const { toast } = useToast();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,6 +33,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    onAddToWishlist(product);
     toast({
       title: "Added to wishlist",
       description: `${product.name} has been added to your wishlist.`,

@@ -1,20 +1,21 @@
 
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Heart, Trash2 } from "lucide-react";
-import { products } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
-export default function WishlistPage() {
+interface WishlistPageProps {
+  wishlist: Product[];
+  handleRemoveFromWishlist: (productId: string, productName: string) => void;
+}
+
+export default function WishlistPage({ wishlist, handleRemoveFromWishlist }: WishlistPageProps) {
   const { toast } = useToast();
-  // Mocking wishlist items. In a real app, this would come from user data.
-  const [wishlistItems, setWishlistItems] = useState<Product[]>(products.slice(3, 6));
 
   const handleAddToCart = (product: Product) => {
     toast({
@@ -24,8 +25,8 @@ export default function WishlistPage() {
     // Here you would typically also call a function to update the cart state
   };
 
-  const handleRemoveFromWishlist = (productId: string, productName: string) => {
-    setWishlistItems(wishlistItems.filter((item) => item.id !== productId));
+  const handleRemoveClick = (productId: string, productName: string) => {
+    handleRemoveFromWishlist(productId, productName);
     toast({
       title: "Removed from wishlist",
       description: `${productName} has been removed from your wishlist.`,
@@ -39,7 +40,7 @@ export default function WishlistPage() {
         <h1 className="text-4xl font-extrabold font-headline">Your Wishlist</h1>
         <Heart className="h-8 w-8 text-destructive fill-destructive" />
       </div>
-      {wishlistItems.length === 0 ? (
+      {wishlist.length === 0 ? (
         <div className="text-center py-16 border rounded-lg">
           <h2 className="text-2xl font-semibold">Your wishlist is empty</h2>
           <p className="text-muted-foreground mt-2">Add items you love to your wishlist to save them for later.</p>
@@ -49,7 +50,7 @@ export default function WishlistPage() {
         </div>
       ) : (
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {wishlistItems.map((item) => (
+          {wishlist.map((item) => (
             <Card key={item.id} className="flex flex-col overflow-hidden">
                 <Link href={`/product/${item.slug}`} className="block">
                     <Image
@@ -74,7 +75,7 @@ export default function WishlistPage() {
                       variant="outline" 
                       size="icon" 
                       className="text-muted-foreground hover:text-destructive"
-                      onClick={() => handleRemoveFromWishlist(item.id, item.name)}
+                      onClick={() => handleRemoveClick(item.id, item.name)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>

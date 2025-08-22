@@ -7,8 +7,13 @@ import { Input } from "@/components/ui/input";
 import { categories, products } from "@/lib/data";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProductCard } from "@/components/shop/ProductCard";
+import type { Product } from "@/lib/types";
 
-export default function Home() {
+interface HomePageProps {
+  handleAddToWishlist: (product: Product) => void;
+}
+
+export default function Home({ handleAddToWishlist }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
 
   return (
@@ -84,7 +89,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onAddToWishlist={handleAddToWishlist} />
           ))}
         </div>
       </section>

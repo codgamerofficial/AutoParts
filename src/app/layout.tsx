@@ -2,12 +2,15 @@
 "use client";
 
 import './globals.css';
+import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { SplashScreen } from '@/components/layout/SplashScreen';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useState, useEffect } from 'react';
+import type { Product } from '@/lib/types';
+import { products } from '@/lib/data';
 
 export default function RootLayout({
   children,
@@ -18,6 +21,7 @@ export default function RootLayout({
   const [isMounted, setIsMounted] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState<{name: string} | null>(null);
+  const [wishlist, setWishlist] = useState<Product[]>(products.slice(3, 6)); // Initial mock data
 
   useEffect(() => {
     setIsMounted(true);
@@ -36,7 +40,6 @@ export default function RootLayout({
       }, 2500);
     }
 
-
     return () => clearTimeout(splashTimer);
   }, []);
   
@@ -49,10 +52,33 @@ export default function RootLayout({
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('authUser');
-    // Optionally, force the modal to reappear on logout
-    // setIsAuthModalOpen(true);
   };
 
+  const handleAddToWishlist = (product: Product) => {
+    setWishlist(prev => {
+        if (prev.find(item => item.id === product.id)) {
+            return prev; // Already in wishlist
+        }
+        return [...prev, product];
+    });
+  };
+
+  const handleRemoveFromWishlist = (productId: string) => {
+    setWishlist(prev => prev.filter(item => item.id !== productId));
+  };
+
+  // Enhance children with wishlist props
+  const childrenWithProps = React.Children.map(children, child => {
+    if (React.isValidElement(child)) {
+      // @ts-ignore - cloning to pass props
+      return React.cloneElement(child, {
+        wishlist,
+        handleAddToWishlist,
+        handleRemoveFromWishlist
+      });
+    }
+    return child;
+  });
 
   return (
     <html lang="en" className={isMounted ? "scroll-smooth dark" : "scroll-smooth"}>
@@ -74,8 +100,13 @@ export default function RootLayout({
               onLoginSuccess={handleLoginSuccess}
             />
             <div className="flex flex-col min-h-screen bg-background/80 backdrop-blur-sm">
-              <Header user={user} onLogout={handleLogout} onLoginClick={() => setIsAuthModalOpen(true)} />
-              <main className="flex-grow">{children}</main>
+              <Header 
+                user={user} 
+                onLogout={handleLogout} 
+                onLoginClick={() => setIsAuthModalOpen(true)}
+                wishlistCount={wishlist.length}
+              />
+              <main className="flex-grow">{childrenWithProps}</main>
               <Footer />
             </div>
           </>
@@ -84,3 +115,4 @@ export default function RootLayout({
       </body>
     </html>
   );
+}
