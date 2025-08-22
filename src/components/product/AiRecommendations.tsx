@@ -15,7 +15,7 @@ interface AiRecommendationsProps {
   productId: string;
   productName: string;
   onAddToWishlist?: (product: Product) => void;
-  onAddToCart?: (product: Product) => void;
+  onAddToCart?: (product: Product, quantity?: number) => void;
 }
 
 type RecommendationState = {
