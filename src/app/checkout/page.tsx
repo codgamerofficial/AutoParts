@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Landmark, IndianRupee, Wallet } from "lucide-react";
+import { CreditCard, Landmark, IndianRupee, Wallet, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
     const [paymentMethod, setPaymentMethod] = useState("card");
@@ -114,6 +114,17 @@ export default function CheckoutPage() {
                       <p className="text-sm text-muted-foreground">Use PayPal or similar services</p>
                    </div>
                 </Label>
+                <Label
+                  htmlFor="payment-cod"
+                  className={`flex items-center space-x-4 p-4 rounded-md border cursor-pointer transition-all ${paymentMethod === 'cod' ? 'border-primary ring-2 ring-primary' : ''}`}
+                >
+                   <RadioGroupItem value="cod" id="payment-cod" />
+                   <Truck className="h-6 w-6" />
+                   <div className="flex-grow">
+                     <p className="font-semibold">Cash on Delivery</p>
+                      <p className="text-sm text-muted-foreground">Pay with cash upon arrival</p>
+                   </div>
+                </Label>
               </RadioGroup>
               <div className="mt-6">
                 {paymentMethod === "card" && (
@@ -149,6 +160,11 @@ export default function CheckoutPage() {
                  {paymentMethod === "paypal" && (
                     <div className="text-center">
                        <Button className="w-full">Proceed to PayPal</Button>
+                    </div>
+                )}
+                {paymentMethod === "cod" && (
+                    <div className="text-center text-muted-foreground">
+                      <p>You can pay with cash when your order is delivered.</p>
                     </div>
                 )}
               </div>
