@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { products } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function CheckoutPage() {
     const { toast } = useToast();
+    const router = useRouter();
     const [paymentMethod, setPaymentMethod] = useState("card");
     const cartItems = products.slice(1, 3);
     const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
@@ -26,9 +28,9 @@ export default function CheckoutPage() {
         title: "Order Placed!",
         description: "Thank you for your purchase. We've received your order and will process it shortly.",
       });
-      // Here you would typically handle order submission to a backend,
-      // and then redirect the user to a success page.
-      // For this prototype, we'll just show a notification.
+      // In a real app, you would handle order submission to a backend here.
+      // We will redirect to the confirmation page.
+      router.push("/order-confirmation");
     };
 
   return (
