@@ -1,5 +1,6 @@
+
 import Link from "next/link";
-import { Wrench, Twitter, Facebook, Instagram } from "lucide-react";
+import { Cog, Twitter, Facebook, Instagram } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Wrench className="h-6 w-6 text-primary" />
+              <Cog className="h-6 w-6 text-primary" />
               <span className="font-bold font-headline text-lg">AutoParts.com</span>
             </Link>
             <p className="text-sm text-muted-foreground">

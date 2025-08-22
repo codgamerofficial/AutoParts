@@ -7,7 +7,7 @@ import {
   ShoppingCart,
   UserCircle,
   Menu,
-  Wrench,
+  Cog,
   Heart,
   LogOut,
 } from "lucide-react";
@@ -42,18 +42,16 @@ interface HeaderProps {
   user: { name: string } | null;
   onLogout: () => void;
   onLoginClick: () => void;
-  wishlistCount: number;
-  cartCount: number;
 }
 
 
-export function Header({ user, onLogout, onLoginClick, wishlistCount, cartCount }: HeaderProps) {
+export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Wrench className="h-6 w-6 text-primary" />
+            <Cog className="h-6 w-6 text-primary" />
             <span className="font-bold font-headline text-lg">AutoParts.com</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -80,7 +78,7 @@ export function Header({ user, onLogout, onLoginClick, wishlistCount, cartCount 
             <SheetContent side="left">
               <div className="flex flex-col space-y-4">
                 <Link href="/" className="mr-6 flex items-center space-x-2">
-                  <Wrench className="h-6 w-6 text-primary" />
+                  <Cog className="h-6 w-6 text-primary" />
                   <span className="font-bold font-headline text-lg">AutoParts.com</span>
                 </Link>
                 <nav className="flex flex-col space-y-2">
