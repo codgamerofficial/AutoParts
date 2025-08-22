@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,7 +12,7 @@ const blogPosts = [
     author: "Jane Smith",
     date: "October 26, 2023",
     category: "Maintenance",
-    image: "https://placehold.co/600x400.png",
+    image: "https://images.unsplash.com/photo-1545089549-0a374679f64c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXIlMjBicmFrZXN8ZW58MHx8fHwxNzU1ODU1NTM0fDA&ixlib=rb-4.1.0&q=80&w=1080",
     aiHint: "car brakes"
   },
   {
