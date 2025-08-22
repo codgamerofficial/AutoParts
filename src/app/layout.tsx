@@ -115,16 +115,11 @@ export default function RootLayout({
       return React.cloneElement(child, {
         wishlist,
         onAddToWishlist: handleAddToWishlist,
-        handleAddToWishlist,
         onRemoveFromWishlist: handleRemoveFromWishlist,
-        handleRemoveFromWishlist,
         cartItems,
         onAddToCart: handleAddToCart,
-        handleAddToCart,
         onRemoveFromCart: handleRemoveFromCart,
-        handleRemoveFromCart,
         onUpdateCartQuantity: handleUpdateCartQuantity,
-        handleUpdateCartQuantity,
       });
     }
     return child;
@@ -147,7 +142,7 @@ export default function RootLayout({
         {!isSplashing && (
           <>
             <AuthModal 
-              isOpen={isAuth_modalOpen} 
+              isOpen={isAuthModalOpen} 
               onOpenChange={setIsAuthModalOpen}
               onLoginSuccess={handleLoginSuccess}
             />

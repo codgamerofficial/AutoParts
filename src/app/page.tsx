@@ -11,9 +11,10 @@ import type { Product } from "@/lib/types";
 
 interface HomePageProps {
   onAddToWishlist: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 }
 
-export default function Home({ onAddToWishlist }: HomePageProps) {
+export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
 
   return (
@@ -89,7 +90,7 @@ export default function Home({ onAddToWishlist }: HomePageProps) {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} />
+            <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} onAddToCart={onAddToCart} />
           ))}
         </div>
       </section>
