@@ -18,12 +18,12 @@ export default function Home() {
         <Image
           src="https://placehold.co/1920x1080.png"
           alt="Close-up of a clean car engine"
-          layout="fill"
+          fill
           objectFit="cover"
           className="z-0 brightness-50"
           data-ai-hint="car engine close-up"
         />
-        <div className="relative z-10 p-4 container">
+        <div className="relative z-10 p-4 container px-8">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
             Find the Right Part, Right Now
           </h1>
