@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { CreditCard, Landmark, IndianRupee, Wallet, Truck } from "lucide-react";
+import { CreditCard, Landmark, Wallet, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
     const [paymentMethod, setPaymentMethod] = useState("card");
@@ -82,17 +82,6 @@ export default function CheckoutPage() {
                   </div>
                 </Label>
                 <Label
-                  htmlFor="payment-upi"
-                  className={`flex items-center space-x-4 p-4 rounded-md border cursor-pointer transition-all ${paymentMethod === 'upi' ? 'border-primary ring-2 ring-primary' : ''}`}
-                >
-                  <RadioGroupItem value="upi" id="payment-upi" />
-                  <IndianRupee className="h-6 w-6" />
-                  <div className="flex-grow">
-                    <p className="font-semibold">UPI</p>
-                     <p className="text-sm text-muted-foreground">For users in India</p>
-                  </div>
-                </Label>
-                <Label
                   htmlFor="payment-bank"
                   className={`flex items-center space-x-4 p-4 rounded-md border cursor-pointer transition-all ${paymentMethod === 'bank' ? 'border-primary ring-2 ring-primary' : ''}`}
                 >
@@ -144,13 +133,6 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                   </div>
-                )}
-                {paymentMethod === "upi" && (
-                    <div className="space-y-2">
-                        <Label htmlFor="upi-id">UPI ID</Label>
-                        <Input id="upi-id" placeholder="yourname@bank" />
-                         <Button className="mt-2 w-full">Verify & Pay</Button>
-                    </div>
                 )}
                  {paymentMethod === "bank" && (
                     <div className="text-center">
