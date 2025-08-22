@@ -12,17 +12,16 @@ import { useToast } from "@/hooks/use-toast";
 interface WishlistPageProps {
   wishlist?: Product[];
   onRemoveFromWishlist?: (productId: string) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
-export default function WishlistPage({ wishlist = [], onRemoveFromWishlist }: WishlistPageProps) {
+export default function WishlistPage({ wishlist = [], onRemoveFromWishlist, onAddToCart }: WishlistPageProps) {
   const { toast } = useToast();
 
   const handleAddToCart = (product: Product) => {
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
-    // Here you would typically also call a function to update the cart state
+    if (onAddToCart) {
+      onAddToCart(product);
+    }
   };
 
   const handleRemoveClick = (productId: string, productName: string) => {
