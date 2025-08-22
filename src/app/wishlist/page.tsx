@@ -10,11 +10,11 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
 interface WishlistPageProps {
-  wishlist: Product[];
-  handleRemoveFromWishlist: (productId: string, productName: string) => void;
+  wishlist?: Product[];
+  handleRemoveFromWishlist?: (productId: string) => void;
 }
 
-export default function WishlistPage({ wishlist, handleRemoveFromWishlist }: WishlistPageProps) {
+export default function WishlistPage({ wishlist = [], handleRemoveFromWishlist }: WishlistPageProps) {
   const { toast } = useToast();
 
   const handleAddToCart = (product: Product) => {
@@ -26,12 +26,14 @@ export default function WishlistPage({ wishlist, handleRemoveFromWishlist }: Wis
   };
 
   const handleRemoveClick = (productId: string, productName: string) => {
-    handleRemoveFromWishlist(productId, productName);
-    toast({
-      title: "Removed from wishlist",
-      description: `${productName} has been removed from your wishlist.`,
-      variant: "destructive",
-    });
+    if (handleRemoveFromWishlist) {
+      handleRemoveFromWishlist(productId);
+      toast({
+        title: "Removed from wishlist",
+        description: `${productName} has been removed from your wishlist.`,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
