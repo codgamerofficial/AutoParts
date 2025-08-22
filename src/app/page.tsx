@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import Image from "next/image";
 import { Search, ArrowRight } from "lucide-react";
@@ -16,11 +17,11 @@ export default function Home() {
       <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Mechanic working on a car"
+          alt="Aesthetic arrangement of auto parts"
           layout="fill"
           objectFit="cover"
           className="z-0 brightness-50"
-          data-ai-hint="mechanic car"
+          data-ai-hint="auto parts aesthetic"
         />
         <div className="relative z-10 p-4 container">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
