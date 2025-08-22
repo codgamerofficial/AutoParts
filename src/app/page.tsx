@@ -17,11 +17,11 @@ export default function Home() {
       <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
         <Image
           src="https://placehold.co/1920x1080.png"
-          alt="Aesthetic arrangement of auto parts"
+          alt="Close-up of a clean car engine"
           layout="fill"
           objectFit="cover"
           className="z-0 brightness-50"
-          data-ai-hint="auto parts aesthetic"
+          data-ai-hint="car engine close-up"
         />
         <div className="relative z-10 p-4 container">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
