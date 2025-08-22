@@ -1,4 +1,5 @@
 
+"use client";
 
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -19,9 +20,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import AiRecommendations from "@/components/product/AiRecommendations";
+import { useToast } from "@/hooks/use-toast";
 
 type ProductPageProps = {
   params: {
@@ -30,11 +31,19 @@ type ProductPageProps = {
 };
 
 export default function ProductPage({ params }: ProductPageProps) {
+  const { toast } = useToast();
   const product = products.find((p) => p.slug === params.slug);
 
   if (!product) {
     notFound();
   }
+
+  const handleAddToCart = () => {
+    toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
 
   return (
     <div className="container py-12">
@@ -98,12 +107,16 @@ export default function ProductPage({ params }: ProductPageProps) {
           </p>
 
           <div className="mt-6 flex gap-2">
-            <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+            <Button
+              size="lg"
+              className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+              onClick={handleAddToCart}
+            >
               Add to Cart
             </Button>
             <Button size="lg" variant="outline" className="px-4">
-                <Heart className="h-6 w-6"/>
-                <span className="sr-only">Add to Wishlist</span>
+              <Heart className="h-6 w-6" />
+              <span className="sr-only">Add to Wishlist</span>
             </Button>
           </div>
 
@@ -135,7 +148,9 @@ export default function ProductPage({ params }: ProductPageProps) {
               <ul className="space-y-2">
                 {Object.entries(product.specs).map(([key, value]) => (
                   <li key={key} className="flex justify-between">
-                    <span className="font-medium text-muted-foreground">{key}</span>
+                    <span className="font-medium text-muted-foreground">
+                      {key}
+                    </span>
                     <span>{value}</span>
                   </li>
                 ))}
@@ -181,7 +196,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           </AccordionItem>
         </Accordion>
       </div>
-      
+
       <Separator className="my-16" />
 
       {/* AI Recommendations */}

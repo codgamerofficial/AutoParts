@@ -1,4 +1,7 @@
 
+"use client";
+
+import { useState, useMemo } from "react";
 import { products, categories } from "@/lib/data";
 import { ProductCard } from "@/components/shop/ProductCard";
 import {
@@ -12,10 +15,58 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+import type { Product } from "@/lib/types";
 
 export default function ShopPage() {
-  // TODO: Implement actual filtering and sorting logic
+  const [sortOption, setSortOption] = useState("featured");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  
   const brands = [...new Set(products.map((p) => p.brand))];
+
+  const handleCategoryChange = (categoryId: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(categoryId) 
+        ? prev.filter(c => c !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+  
+  const handleBrandChange = (brandName: string) => {
+    setSelectedBrands(prev => 
+      prev.includes(brandName) 
+        ? prev.filter(b => b !== brandName)
+        : [...prev, brandName]
+    );
+  };
+
+  const filteredAndSortedProducts = useMemo(() => {
+    let filtered = [...products];
+
+    if (selectedCategories.length > 0) {
+      const categoryNames = categories
+        .filter(c => selectedCategories.includes(c.id))
+        .map(c => c.name);
+      filtered = filtered.filter(p => categoryNames.includes(p.category));
+    }
+    
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter(p => selectedBrands.includes(p.brand));
+    }
+
+    switch (sortOption) {
+      case 'price-asc':
+        return filtered.sort((a, b) => a.price - b.price);
+      case 'price-desc':
+        return filtered.sort((a, b) => b.price - a.price);
+      case 'popular':
+        return filtered.sort((a, b) => b.reviews.length - a.reviews.length);
+      case 'featured':
+      default:
+        // Basic featured logic (can be replaced with a real one)
+        return filtered.sort((a, b) => b.rating - a.rating);
+    }
+  }, [sortOption, selectedCategories, selectedBrands]);
 
   return (
     <div className="container py-8">
@@ -38,7 +89,7 @@ export default function ShopPage() {
               {/* Sort By */}
               <div className="mb-6">
                 <Label htmlFor="sort-by" className="text-base font-medium">Sort By</Label>
-                <Select>
+                <Select value={sortOption} onValueChange={setSortOption}>
                   <SelectTrigger id="sort-by" className="mt-2">
                     <SelectValue placeholder="Featured" />
                   </SelectTrigger>
@@ -59,8 +110,12 @@ export default function ShopPage() {
                 <div className="space-y-2">
                   {categories.map((category) => (
                     <div key={category.id} className="flex items-center space-x-2">
-                      <Checkbox id={`cat-${category.id}`} />
-                      <Label htmlFor={`cat-${category.id}`} className="font-normal">{category.name}</Label>
+                      <Checkbox 
+                        id={`cat-${category.id}`} 
+                        onCheckedChange={() => handleCategoryChange(category.id)}
+                        checked={selectedCategories.includes(category.id)}
+                      />
+                      <Label htmlFor={`cat-${category.id}`} className="font-normal cursor-pointer">{category.name}</Label>
                     </div>
                   ))}
                 </div>
@@ -74,8 +129,12 @@ export default function ShopPage() {
                 <div className="space-y-2">
                   {brands.map((brand) => (
                     <div key={brand} className="flex items-center space-x-2">
-                      <Checkbox id={`brand-${brand}`} />
-                      <Label htmlFor={`brand-${brand}`} className="font-normal">{brand}</Label>
+                      <Checkbox 
+                        id={`brand-${brand}`} 
+                        onCheckedChange={() => handleBrandChange(brand)}
+                        checked={selectedBrands.includes(brand)}
+                      />
+                      <Label htmlFor={`brand-${brand}`} className="font-normal cursor-pointer">{brand}</Label>
                     </div>
                   ))}
                 </div>
@@ -87,11 +146,18 @@ export default function ShopPage() {
 
         {/* Product Grid */}
         <main className="md:col-span-3">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {filteredAndSortedProducts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredAndSortedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 border rounded-lg">
+              <h2 className="text-2xl font-semibold">No products found</h2>
+              <p className="text-muted-foreground mt-2">Try adjusting your filters.</p>
+            </div>
+          )}
           {/* TODO: Add pagination */}
         </main>
       </div>
