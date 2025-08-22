@@ -110,8 +110,8 @@ export default function CheckoutPage() {
                    <RadioGroupItem value="cod" id="payment-cod" />
                    <Truck className="h-6 w-6" />
                    <div className="flex-grow">
-                     <p className="font-semibold">Cash on Delivery</p>
-                      <p className="text-sm text-muted-foreground">Pay with cash upon arrival</p>
+                     <p className="font-semibold">Pay on Delivery</p>
+                      <p className="text-sm text-muted-foreground">Pay upon arrival</p>
                    </div>
                 </Label>
               </RadioGroup>
@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                 )}
                 {paymentMethod === "cod" && (
                     <div className="text-center text-muted-foreground">
-                      <p>You can pay with cash when your order is delivered.</p>
+                      <p>You can pay when your order is delivered.</p>
                     </div>
                 )}
               </div>
