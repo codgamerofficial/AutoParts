@@ -16,6 +16,13 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import type { Product } from "@/lib/types";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Filter } from "lucide-react";
 
 interface ShopPageProps {
   onAddToWishlist?: (product: Product) => void;
@@ -73,80 +80,98 @@ export default function ShopPage({ onAddToWishlist, onAddToCart }: ShopPageProps
     }
   }, [sortOption, selectedCategories, selectedBrands]);
 
+  const filtersContent = (
+    <Card>
+      <CardContent className="p-4">
+        <h3 className="text-xl font-semibold font-headline mb-4">Filters</h3>
+        
+        {/* Sort By */}
+        <div className="mb-6">
+          <Label htmlFor="sort-by" className="text-base font-medium">Sort By</Label>
+          <Select value={sortOption} onValueChange={setSortOption}>
+            <SelectTrigger id="sort-by" className="mt-2">
+              <SelectValue placeholder="Featured" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="featured">Featured</SelectItem>
+              <SelectItem value="popular">Popular</SelectItem>
+              <SelectItem value="price-asc">Price: Low to High</SelectItem>
+              <SelectItem value="price-desc">Price: High to Low</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <Separator className="my-4"/>
+
+        {/* Categories */}
+        <div className="mb-6">
+          <h4 className="text-base font-medium mb-2">Category</h4>
+          <div className="space-y-2">
+            {categories.map((category) => (
+              <div key={category.id} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`cat-${category.id}`} 
+                  onCheckedChange={() => handleCategoryChange(category.id)}
+                  checked={selectedCategories.includes(category.id)}
+                />
+                <Label htmlFor={`cat-${category.id}`} className="font-normal cursor-pointer">{category.name}</Label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <Separator className="my-4"/>
+
+        {/* Brands */}
+        <div>
+          <h4 className="text-base font-medium mb-2">Brand</h4>
+          <div className="space-y-2">
+            {brands.map((brand) => (
+              <div key={brand} className="flex items-center space-x-2">
+                <Checkbox 
+                  id={`brand-${brand}`} 
+                  onCheckedChange={() => handleBrandChange(brand)}
+                  checked={selectedBrands.includes(brand)}
+                />
+                <Label htmlFor={`brand-${brand}`} className="font-normal cursor-pointer">{brand}</Label>
+              </div>
+            ))}
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="container py-8">
-      <header className="mb-8">
-        <h1 className="text-4xl font-extrabold font-headline tracking-tight">
-          Shop All Parts
-        </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          Find everything you need to keep your vehicle running at its best.
-        </p>
+      <header className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-extrabold font-headline tracking-tight">
+            Shop All Parts
+          </h1>
+          <p className="mt-2 text-lg text-muted-foreground">
+            Find everything you need to keep your vehicle running at its best.
+          </p>
+        </div>
+        <div className="md:hidden">
+            <Sheet>
+                <SheetTrigger asChild>
+                    <Button variant="outline" size="icon">
+                        <Filter className="h-5 w-5" />
+                        <span className="sr-only">Filters</span>
+                    </Button>
+                </SheetTrigger>
+                <SheetContent>
+                    {filtersContent}
+                </SheetContent>
+            </Sheet>
+        </div>
       </header>
 
       <div className="grid md:grid-cols-4 gap-8">
         {/* Filters */}
-        <aside className="md:col-span-1">
-          <Card>
-            <CardContent className="p-4">
-              <h3 className="text-xl font-semibold font-headline mb-4">Filters</h3>
-              
-              {/* Sort By */}
-              <div className="mb-6">
-                <Label htmlFor="sort-by" className="text-base font-medium">Sort By</Label>
-                <Select value={sortOption} onValueChange={setSortOption}>
-                  <SelectTrigger id="sort-by" className="mt-2">
-                    <SelectValue placeholder="Featured" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="featured">Featured</SelectItem>
-                    <SelectItem value="popular">Popular</SelectItem>
-                    <SelectItem value="price-asc">Price: Low to High</SelectItem>
-                    <SelectItem value="price-desc">Price: High to Low</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <Separator className="my-4"/>
-
-              {/* Categories */}
-              <div className="mb-6">
-                <h4 className="text-base font-medium mb-2">Category</h4>
-                <div className="space-y-2">
-                  {categories.map((category) => (
-                    <div key={category.id} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`cat-${category.id}`} 
-                        onCheckedChange={() => handleCategoryChange(category.id)}
-                        checked={selectedCategories.includes(category.id)}
-                      />
-                      <Label htmlFor={`cat-${category.id}`} className="font-normal cursor-pointer">{category.name}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Separator className="my-4"/>
-
-              {/* Brands */}
-              <div>
-                <h4 className="text-base font-medium mb-2">Brand</h4>
-                <div className="space-y-2">
-                  {brands.map((brand) => (
-                    <div key={brand} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={`brand-${brand}`} 
-                        onCheckedChange={() => handleBrandChange(brand)}
-                        checked={selectedBrands.includes(brand)}
-                      />
-                      <Label htmlFor={`brand-${brand}`} className="font-normal cursor-pointer">{brand}</Label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </CardContent>
-          </Card>
+        <aside className="hidden md:block md:col-span-1">
+            {filtersContent}
         </aside>
 
         {/* Product Grid */}

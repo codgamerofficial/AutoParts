@@ -29,7 +29,7 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
           className="z-0 brightness-50"
           data-ai-hint="modern car"
         />
-        <div className="relative z-10 p-4 container px-8">
+        <div className="relative z-10 p-4 container px-4 sm:px-8">
           <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
             Find the Right Part, Right Now
           </h1>
@@ -40,11 +40,11 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
             <div className="relative">
               <Input
                 placeholder="Search by part name, number, or vehicle..."
-                className="h-12 text-lg pl-5 pr-32 text-foreground"
+                className="h-12 text-base sm:text-lg pl-5 pr-28 sm:pr-32 text-foreground"
               />
               <Button className="absolute right-2 top-1/2 -translate-y-1/2" size="sm">
-                <Search className="h-4 w-4 mr-2" />
-                Search
+                <Search className="h-4 w-4 md:mr-2" />
+                <span className="hidden md:inline">Search</span>
               </Button>
             </div>
           </div>

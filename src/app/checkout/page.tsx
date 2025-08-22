@@ -34,15 +34,15 @@ export default function CheckoutPage() {
     };
 
   return (
-    <div className="container py-16">
+    <div className="container py-12 md:py-16">
       <div className="text-center">
-        <h1 className="text-4xl font-extrabold font-headline mb-4">Checkout</h1>
+        <h1 className="text-3xl md:text-4xl font-extrabold font-headline mb-4">Checkout</h1>
         <p className="text-muted-foreground max-w-2xl mx-auto">
             Please review your order and complete your purchase.
         </p>
       </div>
 
-      <div className="mt-12 grid lg:grid-cols-3 gap-12">
+      <div className="mt-12 grid lg:grid-cols-3 gap-8 lg:gap-12">
         {/* Shipping and Payment Forms */}
         <div className="lg:col-span-2 space-y-8">
           <Card>
@@ -50,7 +50,7 @@ export default function CheckoutPage() {
               <CardTitle className="font-headline text-2xl">Shipping Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First Name</Label>
                   <Input id="first-name" placeholder="John" />
@@ -64,8 +64,8 @@ export default function CheckoutPage() {
                 <Label htmlFor="address">Address</Label>
                 <Input id="address" placeholder="123 Main St" />
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="space-y-2 col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="space-y-2 sm:col-span-2">
                   <Label htmlFor="city">City</Label>
                   <Input id="city" placeholder="Anytown" />
                 </div>

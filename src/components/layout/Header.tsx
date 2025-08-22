@@ -29,7 +29,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -67,7 +66,7 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
           </nav>
         </div>
 
-        <div className="md:hidden">
+        <div className="flex items-center md:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -96,10 +95,14 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
               </div>
             </SheetContent>
           </Sheet>
+          <Link href="/" className="ml-2 flex items-center space-x-2 md:hidden">
+            <Cog className="h-6 w-6 text-primary" />
+            <span className="font-bold font-headline text-base">AutoParts.com</span>
+          </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-end space-x-2">
-          <div className="flex-1 sm:max-w-xs">
+        <div className="flex flex-1 items-center justify-end space-x-1 sm:space-x-2">
+          <div className="flex-1 sm:max-w-xs ml-auto">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
