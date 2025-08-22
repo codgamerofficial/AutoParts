@@ -51,7 +51,7 @@ export function Footer() {
             <p className="text-sm text-muted-foreground mb-4">Get exclusive deals and product updates.</p>
             <div className="flex w-full max-w-sm items-center space-x-2">
               <Input type="email" placeholder="Email" />
-              <Button type="submit" variant="secondary" className="bg-accent text-accent-foreground hover:bg-accent/90">Subscribe</Button>
+              <Button type="submit" variant="secondary" className="hover:bg-primary/90">Subscribe</Button>
             </div>
           </div>
         </div>
