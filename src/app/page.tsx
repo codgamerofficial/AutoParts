@@ -22,7 +22,7 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
         <Image
-          src="https://placehold.co/1600x900.png"
+          src="https://i.ibb.co/fYTKqr6v/homethumb.jpg"
           alt="Modern sports car"
           fill
           objectFit="cover"
