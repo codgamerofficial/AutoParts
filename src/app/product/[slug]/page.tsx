@@ -33,7 +33,8 @@ type ProductPageProps = {
   onAddToCart?: (product: Product) => void;
 };
 
-export default function ProductPage({ params, onAddToWishlist, onAddToCart }: ProductPageProps) {
+export default function ProductPage({ params: paramsPromise, onAddToWishlist, onAddToCart }: ProductPageProps) {
+  const params = React.use(paramsPromise);
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
 
