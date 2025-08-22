@@ -58,7 +58,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </CardContent>
         <CardFooter className="p-4 pt-0 flex justify-between items-center">
           <p className="text-xl font-bold font-headline text-primary">${product.price.toFixed(2)}</p>
-          <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+          <Button size="sm" variant="secondary">
             View Details
           </Button>
         </CardFooter>
