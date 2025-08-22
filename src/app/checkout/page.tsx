@@ -11,13 +11,25 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CreditCard, Landmark, Wallet, Truck } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CheckoutPage() {
+    const { toast } = useToast();
     const [paymentMethod, setPaymentMethod] = useState("card");
     const cartItems = products.slice(1, 3);
     const subtotal = cartItems.reduce((acc, item) => acc + item.price, 0);
     const tax = subtotal * 0.08;
     const total = subtotal + tax;
+
+    const handlePlaceOrder = () => {
+      toast({
+        title: "Order Placed!",
+        description: "Thank you for your purchase. We've received your order and will process it shortly.",
+      });
+      // Here you would typically handle order submission to a backend,
+      // and then redirect the user to a success page.
+      // For this prototype, we'll just show a notification.
+    };
 
   return (
     <div className="container py-16">
@@ -185,7 +197,7 @@ export default function CheckoutPage() {
                 </div>
             </CardContent>
             <CardFooter>
-              <Button size="lg" className="w-full">Place Order</Button>
+              <Button size="lg" className="w-full" onClick={handlePlaceOrder}>Place Order</Button>
             </CardFooter>
           </Card>
         </div>
