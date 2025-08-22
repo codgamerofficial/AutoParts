@@ -24,7 +24,7 @@ export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCa
     e.preventDefault();
     e.stopPropagation();
     if (onAddToCart) {
-      onAddToCart(product);
+      onAddToCart(product, 1);
     }
   };
 
