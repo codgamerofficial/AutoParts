@@ -11,33 +11,29 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
 
 interface ProductCardProps {
   product: Product;
-  onAddToWishlist: (product: Product) => void;
+  onAddToWishlist?: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
-export function ProductCard({ product, onAddToWishlist }: ProductCardProps) {
-  const { toast } = useToast();
+export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCardProps) {
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddToCartClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
+    if (onAddToCart) {
+      onAddToCart(product);
+    }
   };
 
-  const handleAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleAddToWishlistClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    onAddToWishlist(product);
-    toast({
-      title: "Added to wishlist",
-      description: `${product.name} has been added to your wishlist.`,
-    });
+    if (onAddToWishlist) {
+      onAddToWishlist(product);
+    }
   };
 
   return (
@@ -55,7 +51,7 @@ export function ProductCard({ product, onAddToWishlist }: ProductCardProps) {
           {product.stock < 10 && (
             <Badge variant="destructive" className="absolute top-2 right-2">Low Stock</Badge>
           )}
-          <Button variant="ghost" size="icon" className="absolute top-1 right-1 bg-white/50 backdrop-blur-sm rounded-full text-destructive hover:text-destructive hover:bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity" onClick={handleAddToWishlist}>
+          <Button variant="ghost" size="icon" className="absolute top-1 right-1 bg-white/50 backdrop-blur-sm rounded-full text-destructive hover:text-destructive hover:bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity" onClick={handleAddToWishlistClick}>
               <Heart className="h-5 w-5"/>
               <span className="sr-only">Add to Wishlist</span>
           </Button>
@@ -84,7 +80,7 @@ export function ProductCard({ product, onAddToWishlist }: ProductCardProps) {
         </CardContent>
         <CardFooter className="p-4 pt-0 mt-auto flex justify-between items-center">
           <p className="text-xl font-bold font-headline text-primary">${product.price.toFixed(2)}</p>
-           <Button size="sm" variant="secondary" onClick={handleAddToCart}>
+           <Button size="sm" variant="secondary" onClick={handleAddToCartClick}>
             Add to Cart
           </Button>
         </CardFooter>

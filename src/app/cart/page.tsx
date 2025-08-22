@@ -1,44 +1,39 @@
 
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
-import { products } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import type { Product } from "@/lib/types";
+import type { CartItem } from "@/lib/types";
 
-type CartItem = Product & { quantity: number };
+interface CartPageProps {
+  cartItems?: CartItem[];
+  onRemoveFromCart?: (productId: string) => void;
+  onUpdateCartQuantity?: (productId: string, quantity: number) => void;
+}
 
-export default function CartPage() {
+export default function CartPage({ cartItems = [], onRemoveFromCart, onUpdateCartQuantity }: CartPageProps) {
   const { toast } = useToast();
-  const [cartItems, setCartItems] = useState<CartItem[]>(
-    products.slice(0, 3).map((product, index) => ({
-      ...product,
-      quantity: index + 1,
-    }))
-  );
-
-  const handleQuantityChange = (productId: string, quantity: number) => {
-    const newQuantity = Math.max(1, quantity); // Ensure quantity is at least 1
-    setCartItems(
-      cartItems.map((item) =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
 
   const handleRemoveItem = (productId: string, productName: string) => {
-    setCartItems(cartItems.filter((item) => item.id !== productId));
-    toast({
-      title: "Item Removed",
-      description: `${productName} has been removed from your cart.`,
-    });
+    if (onRemoveFromCart) {
+      onRemoveFromCart(productId);
+      toast({
+        title: "Item Removed",
+        description: `${productName} has been removed from your cart.`,
+      });
+    }
+  };
+
+  const handleQuantityChange = (productId: string, quantity: number) => {
+    if (onUpdateCartQuantity) {
+        onUpdateCartQuantity(productId, quantity);
+    }
   };
 
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);

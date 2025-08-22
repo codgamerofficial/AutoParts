@@ -14,7 +14,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 interface AiRecommendationsProps {
   productId: string;
   productName: string;
-  onAddToWishlist: (product: Product) => void;
+  onAddToWishlist?: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 }
 
 type RecommendationState = {
@@ -22,7 +23,7 @@ type RecommendationState = {
   products: Product[];
 } | null;
 
-export default function AiRecommendations({ productId, productName, onAddToWishlist }: AiRecommendationsProps) {
+export default function AiRecommendations({ productId, productName, onAddToWishlist, onAddToCart }: AiRecommendationsProps) {
   const [recommendations, setRecommendations] = useState<RecommendationState>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -80,8 +81,7 @@ export default function AiRecommendations({ productId, productName, onAddToWishl
         )}
         {error && (
           <Alert variant="destructive">
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
+            <AlertTitle>Error</AlertTitle>            <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
         {recommendations && (
@@ -95,7 +95,7 @@ export default function AiRecommendations({ productId, productName, onAddToWishl
             {recommendations.products.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {recommendations.products.map((product) => (
-                  <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} />
+                  <ProductCard key={product.id} product={product} onAddToWishlist={onAddToWishlist} onAddToCart={onAddToCart} />
                 ))}
               </div>
             ) : (

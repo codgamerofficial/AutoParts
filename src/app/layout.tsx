@@ -9,19 +9,28 @@ import { Toaster } from '@/components/ui/toaster';
 import { SplashScreen } from '@/components/layout/SplashScreen';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useState, useEffect } from 'react';
-import type { Product } from '@/lib/types';
+import type { Product, CartItem } from '@/lib/types';
 import { products } from '@/lib/data';
+import { useToast } from "@/hooks/use-toast";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { toast } = useToast();
   const [isSplashing, setIsSplashing] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState<{name: string} | null>(null);
   const [wishlist, setWishlist] = useState<Product[]>(products.slice(3, 6)); // Initial mock data
+  const [cartItems, setCartItems] = useState<CartItem[]>(
+     products.slice(0, 3).map((product, index) => ({
+      ...product,
+      quantity: index + 1,
+    }))
+  );
+
 
   useEffect(() => {
     setIsMounted(true);
@@ -57,8 +66,10 @@ export default function RootLayout({
   const handleAddToWishlist = (product: Product) => {
     setWishlist(prev => {
         if (prev.find(item => item.id === product.id)) {
-            return prev; // Already in wishlist
+            toast({ title: "Already in wishlist", description: `${product.name} is already in your wishlist.`});
+            return prev;
         }
+        toast({ title: "Added to wishlist", description: `${product.name} has been added to your wishlist.`});
         return [...prev, product];
     });
   };
@@ -66,8 +77,38 @@ export default function RootLayout({
   const handleRemoveFromWishlist = (productId: string) => {
     setWishlist(prev => prev.filter(item => item.id !== productId));
   };
+  
+  const handleAddToCart = (product: Product, quantity: number = 1) => {
+    setCartItems(prev => {
+      const existingItem = prev.find(item => item.id === product.id);
+      if (existingItem) {
+        return prev.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+        );
+      }
+      return [...prev, { ...product, quantity }];
+    });
+     toast({
+      title: "Added to cart",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
 
-  // Enhance children with wishlist props
+  const handleRemoveFromCart = (productId: string) => {
+    setCartItems(prev => prev.filter(item => item.id !== productId));
+  };
+
+  const handleUpdateCartQuantity = (productId: string, quantity: number) => {
+    const newQuantity = Math.max(1, quantity);
+    setCartItems(prev =>
+      prev.map(item =>
+        item.id === productId ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+
+  // Enhance children with props
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement(child)) {
       // @ts-ignore - cloning to pass props
@@ -77,10 +118,19 @@ export default function RootLayout({
         handleAddToWishlist,
         onRemoveFromWishlist: handleRemoveFromWishlist,
         handleRemoveFromWishlist,
+        cartItems,
+        onAddToCart: handleAddToCart,
+        handleAddToCart,
+        onRemoveFromCart: handleRemoveFromCart,
+        handleRemoveFromCart,
+        onUpdateCartQuantity: handleUpdateCartQuantity,
+        handleUpdateCartQuantity,
       });
     }
     return child;
   });
+
+  const totalCartItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <html lang="en" className={isMounted ? "scroll-smooth dark" : "scroll-smooth"}>
@@ -97,7 +147,7 @@ export default function RootLayout({
         {!isSplashing && (
           <>
             <AuthModal 
-              isOpen={isAuthModalOpen} 
+              isOpen={isAuth_modalOpen} 
               onOpenChange={setIsAuthModalOpen}
               onLoginSuccess={handleLoginSuccess}
             />
@@ -107,6 +157,7 @@ export default function RootLayout({
                 onLogout={handleLogout} 
                 onLoginClick={() => setIsAuthModalOpen(true)}
                 wishlistCount={wishlist.length}
+                cartCount={totalCartItems}
               />
               <main className="flex-grow">{childrenWithProps}</main>
               <Footer />

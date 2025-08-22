@@ -12,7 +12,6 @@ import {
   LogOut,
 } from "lucide-react";
 
-import { Logo } from "@/components/icons/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -44,10 +43,11 @@ interface HeaderProps {
   onLogout: () => void;
   onLoginClick: () => void;
   wishlistCount: number;
+  cartCount: number;
 }
 
 
-export function Header({ user, onLogout, onLoginClick, wishlistCount }: HeaderProps) {
+export function Header({ user, onLogout, onLoginClick, wishlistCount, cartCount }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -121,9 +121,14 @@ export function Header({ user, onLogout, onLoginClick, wishlistCount }: HeaderPr
               <span className="sr-only">Wishlist</span>
             </Link>
           </Button>
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon" asChild className="relative">
             <Link href="/cart">
               <ShoppingCart className="h-5 w-5" />
+               {cartCount > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-4 w-4 justify-center rounded-full p-0 text-xs">
+                  {cartCount}
+                </Badge>
+              )}
               <span className="sr-only">Shopping Cart</span>
             </Link>
           </Button>

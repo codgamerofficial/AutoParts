@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
 import AiRecommendations from "@/components/product/AiRecommendations";
-import { useToast } from "@/hooks/use-toast";
 import React from "react";
 import type { Product } from "@/lib/types";
 
@@ -30,11 +29,11 @@ type ProductPageProps = {
   params: {
     slug: string;
   };
-  onAddToWishlist: (product: Product) => void;
+  onAddToWishlist?: (product: Product) => void;
+  onAddToCart?: (product: Product) => void;
 };
 
-export default function ProductPage({ params, onAddToWishlist }: ProductPageProps) {
-  const { toast } = useToast();
+export default function ProductPage({ params, onAddToWishlist, onAddToCart }: ProductPageProps) {
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
 
@@ -42,20 +41,15 @@ export default function ProductPage({ params, onAddToWishlist }: ProductPageProp
     notFound();
   }
 
-  const handleAddToCart = () => {
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart.`,
-    });
+  const handleAddToCartClick = () => {
+    if (onAddToCart && product) {
+      onAddToCart(product);
+    }
   };
 
   const onWishlistClick = () => {
-    if (onAddToWishlist) {
+    if (onAddToWishlist && product) {
         onAddToWishlist(product);
-        toast({
-            title: "Added to wishlist",
-            description: `${product.name} has been added to your wishlist.`,
-        });
     }
   }
 
@@ -125,7 +119,7 @@ export default function ProductPage({ params, onAddToWishlist }: ProductPageProp
               size="lg"
               className="w-full"
               variant="default"
-              onClick={handleAddToCart}
+              onClick={handleAddToCartClick}
             >
               Add to Cart
             </Button>
@@ -215,7 +209,7 @@ export default function ProductPage({ params, onAddToWishlist }: ProductPageProp
       <Separator className="my-16" />
 
       {/* AI Recommendations */}
-      <AiRecommendations productId={product.id} productName={product.name} onAddToWishlist={onAddToWishlist} />
+      <AiRecommendations productId={product.id} productName={product.name} onAddToWishlist={onAddToWishlist} onAddToCart={onAddToCart} />
     </div>
   );
 }
