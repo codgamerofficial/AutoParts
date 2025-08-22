@@ -1,6 +1,7 @@
+
 import Link from "next/link";
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, Heart } from "lucide-react";
 
 import type { Product } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,10 @@ export function ProductCard({ product }: ProductCardProps) {
         {product.stock < 10 && (
           <Badge variant="destructive" className="absolute top-2 right-2">Low Stock</Badge>
         )}
+        <Button variant="ghost" size="icon" className="absolute top-1 right-1 bg-white/50 backdrop-blur-sm rounded-full text-destructive hover:text-destructive hover:bg-white/70">
+            <Heart className="h-5 w-5"/>
+            <span className="sr-only">Add to Wishlist</span>
+        </Button>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
         <Link href={`/product/${product.slug}`} className="hover:text-primary">

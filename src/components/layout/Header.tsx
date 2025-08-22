@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +8,7 @@ import {
   UserCircle,
   Menu,
   Wrench,
+  Heart,
 } from "lucide-react";
 
 import { Logo } from "@/components/icons/Logo";
@@ -89,6 +91,12 @@ export function Header() {
               />
             </div>
           </div>
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/wishlist">
+              <Heart className="h-5 w-5" />
+              <span className="sr-only">Wishlist</span>
+            </Link>
+          </Button>
           <Button variant="ghost" size="icon" asChild>
             <Link href="/cart">
               <ShoppingCart className="h-5 w-5" />

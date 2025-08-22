@@ -1,6 +1,7 @@
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { Star, CheckCircle, ShieldCheck } from "lucide-react";
+import { Star, CheckCircle, ShieldCheck, Heart } from "lucide-react";
 import { products } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -95,9 +96,13 @@ export default function ProductPage({ params }: ProductPageProps) {
             {product.description}
           </p>
 
-          <div className="mt-6">
+          <div className="mt-6 flex gap-2">
             <Button size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
               Add to Cart
+            </Button>
+            <Button size="lg" variant="outline" className="px-4">
+                <Heart className="h-6 w-6"/>
+                <span className="sr-only">Add to Wishlist</span>
             </Button>
           </div>
 
