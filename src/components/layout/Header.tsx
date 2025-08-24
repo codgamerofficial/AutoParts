@@ -29,7 +29,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -112,7 +111,6 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
               />
             </div>
           </div>
-          <ThemeToggle />
           <Button variant="ghost" size="icon" asChild>
             <Link href="/wishlist">
               <Heart className="h-5 w-5" />
