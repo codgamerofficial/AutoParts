@@ -3,7 +3,7 @@
 
 import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
-import { Star, CheckCircle, ShieldCheck, Heart } from "lucide-react";
+import { Star, CheckCircle, ShieldCheck, Heart, ShoppingCart } from "lucide-react";
 import { products } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,12 @@ export default function ProductPage({ params: paramsPromise, onAddToWishlist, on
     if (onAddToCart) {
       onAddToCart(product);
       router.push('/checkout');
+    }
+  };
+
+  const handleAddToCartClick = () => {
+    if (onAddToCart) {
+      onAddToCart(product);
     }
   };
 
@@ -117,19 +123,28 @@ export default function ProductPage({ params: paramsPromise, onAddToWishlist, on
             {product.description}
           </p>
 
-          <div className="mt-6 flex gap-2">
+          <div className="mt-6 space-y-3">
             <Button
               size="lg"
               className="w-full"
-              variant="default"
-              onClick={handleBuyNowClick}
+              onClick={handleAddToCartClick}
             >
-              Buy Now
+             <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
             </Button>
-            <Button size="lg" variant="outline" className="px-4" onClick={onWishlistClick}>
-              <Heart className="h-6 w-6" />
-              <span className="sr-only">Add to Wishlist</span>
-            </Button>
+             <div className="flex gap-3">
+                 <Button
+                    size="lg"
+                    className="w-full"
+                    variant="outline"
+                    onClick={handleBuyNowClick}
+                    >
+                    Buy Now
+                </Button>
+                <Button size="lg" variant="outline" className="px-4" onClick={onWishlistClick}>
+                    <Heart className="h-6 w-6" />
+                    <span className="sr-only">Add to Wishlist</span>
+                </Button>
+             </div>
           </div>
 
           <div className="mt-6 space-y-2 text-sm text-muted-foreground">
