@@ -10,7 +10,6 @@ import { SplashScreen } from '@/components/layout/SplashScreen';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { useState, useEffect } from 'react';
 import type { Product, CartItem } from '@/lib/types';
-import { products } from '@/lib/data';
 import { useToast } from "@/hooks/use-toast";
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 
@@ -121,8 +120,6 @@ export default function RootLayout({
     }
     return child;
   });
-
-  const totalCartItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   if (!isMounted) {
     return null;
