@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Star, Heart } from "lucide-react";
+import { Star, Heart, ShoppingCart } from "lucide-react";
 import React from "react";
 
 import type { Product } from "@/lib/types";
@@ -37,7 +37,7 @@ export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCa
   };
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg group">
+    <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
       <Link href={`/product/${product.slug}`} className="flex flex-col flex-grow">
         <CardHeader className="p-0 relative">
           <Image
@@ -81,6 +81,7 @@ export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCa
         <CardFooter className="p-4 pt-0 mt-auto flex justify-between items-center">
           <p className="text-xl font-bold font-headline text-primary">${product.price.toFixed(2)}</p>
            <Button size="sm" variant="secondary" onClick={handleAddToCartClick}>
+             <ShoppingCart className="mr-2"/>
             Add to Cart
           </Button>
         </CardFooter>

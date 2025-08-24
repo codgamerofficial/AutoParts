@@ -5,7 +5,6 @@ import { Search, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { categories, products } from "@/lib/data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProductCard } from "@/components/shop/ProductCard";
 import type { Product } from "@/lib/types";
 
@@ -18,9 +17,9 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
 
   return (
-    <div className="space-y-16 pb-16">
+    <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16">
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center text-center text-white">
+      <section className="relative h-[65vh] flex items-center justify-center text-center text-white">
         <Image
           src="https://i.ibb.co/d0H3jkCg/homethumb.jpg"
           alt="Modern sports car"
@@ -28,21 +27,22 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
           objectFit="cover"
           className="z-0 brightness-50"
           data-ai-hint="modern car"
+          priority
         />
-        <div className="relative z-10 p-4 container px-4 sm:px-8">
-          <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
+        <div className="relative z-10 p-4 container">
+          <h1 className="text-4xl md:text-6xl font-extrabold font-headline animate-fade-in-up">
             Find the Right Part, Right Now
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-200">
+          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-200 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             High-quality auto parts from brands you trust. Fast shipping, great prices.
           </p>
-          <div className="mt-8 max-w-xl mx-auto">
+          <div className="mt-8 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <div className="relative">
               <Input
                 placeholder="Search by part name, number, or vehicle..."
                 className="h-12 text-base sm:text-lg pl-5 pr-28 sm:pr-32 text-foreground"
               />
-              <Button className="absolute right-2 top-1/2 -translate-y-1/2" size="sm">
+              <Button className="absolute right-2 top-1/2 -translate-y-1/2" size="sm" variant="accent">
                 <Search className="h-4 w-4 md:mr-2" />
                 <span className="hidden md:inline">Search</span>
               </Button>
@@ -52,19 +52,19 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       </section>
 
       {/* Categories Section */}
-      <section className="container">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold font-headline">Browse By Category</h2>
+      <section className="container px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-bold font-headline">Browse By Category</h2>
           <p className="text-muted-foreground mt-2">
             Find exactly what you need from our wide range of categories.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
           {categories.map((category) => (
             <Link href={`/shop?category=${category.slug}`} key={category.id}>
-              <div className="group text-center p-4 rounded-lg border bg-card hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:-translate-y-1">
-                <category.icon className="h-10 w-10 mx-auto text-primary group-hover:text-primary-foreground" />
-                <h3 className="mt-3 font-semibold font-headline text-base">
+              <div className="group text-center p-4 rounded-lg border bg-card hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:-translate-y-2 hover:shadow-xl">
+                <category.icon className="h-10 w-10 mx-auto text-accent transition-colors duration-300" />
+                <h3 className="mt-4 font-semibold font-headline text-base">
                   {category.name}
                 </h3>
               </div>
@@ -74,10 +74,10 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       </section>
 
       {/* Featured Products Section */}
-      <section className="container">
+      <section className="container px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h2 className="text-3xl font-bold font-headline">Featured Products</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold font-headline">Featured Products</h2>
             <p className="text-muted-foreground mt-2">
               Top picks and best sellers from our collection.
             </p>
@@ -97,9 +97,9 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
 
       {/* Why Choose Us Section */}
       <section className="bg-card">
-        <div className="container py-16">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold font-headline">Why Choose AutoParts.com?</h2>
+        <div className="container px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold font-headline">Why Choose AutoParts.com?</h2>
             <p className="text-muted-foreground mt-2">
               We are committed to providing you with the best experience.
             </p>

@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <div>
-      <section className="bg-card py-20 text-center">
+    <div className="container px-4 sm:px-6 lg:px-8 py-16">
+      <section className="bg-card py-20 text-center rounded-lg">
         <div className="container">
           <h1 className="text-5xl font-extrabold font-headline">About AutoParts.com</h1>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
@@ -29,7 +29,7 @@ export default function AboutPage() {
               alt="AutoParts.com warehouse"
               width={600}
               height={400}
-              className="rounded-lg shadow-md"
+              className="rounded-lg shadow-lg"
               data-ai-hint="warehouse car parts"
             />
           </div>
