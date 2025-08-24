@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { categories, products } from "@/lib/data";
 import { ProductCard } from "@/components/shop/ProductCard";
 import type { Product } from "@/lib/types";
+import { BrandSlider } from "@/components/layout/BrandSlider";
 
 interface HomePageProps {
   onAddToWishlist: (product: Product) => void;
@@ -94,9 +95,22 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
           ))}
         </div>
       </section>
+      
+      {/* Brand Slider Section */}
+      <section className="bg-card py-16">
+        <div className="container mx-auto">
+           <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold font-headline">Trusted Premium Brands</h2>
+            <p className="text-muted-foreground mt-2">
+              We partner with the best to bring you unbeatable quality.
+            </p>
+          </div>
+          <BrandSlider />
+        </div>
+      </section>
 
       {/* Why Choose Us Section */}
-      <section className="bg-card">
+      <section className="bg-background">
         <div className="container px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold font-headline">Why Choose AutoParts.com?</h2>

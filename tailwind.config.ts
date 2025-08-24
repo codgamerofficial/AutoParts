@@ -95,12 +95,17 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'popup': 'popup 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
       },
     },
   },
