@@ -10,6 +10,8 @@ import {
   Cog,
   Heart,
   LogOut,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -29,13 +31,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
-  { href: "/about", label: "About Us" },
+  { href: "/brands", label: "Brands" },
+  { href: "/deals", label: "Deals" },
   { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/support", label: "Support" },
 ];
 
 interface HeaderProps {
@@ -46,6 +50,7 @@ interface HeaderProps {
 
 
 export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
+  const { setTheme } = useTheme();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
