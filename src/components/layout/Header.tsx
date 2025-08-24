@@ -12,6 +12,7 @@ import {
   LogOut,
   Sun,
   Moon,
+  Award,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ const navLinks = [
   { href: "/shop", label: "Shop" },
   { href: "/brands", label: "Brands" },
   { href: "/deals", label: "Deals" },
+  { href: "/loyalty", label: "Loyalty" },
   { href: "/blog", label: "Blog" },
   { href: "/support", label: "Support" },
 ];
@@ -153,6 +155,12 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
                    <Link href="/account">
                     <UserCircle className="mr-2 h-4 w-4" />
                     <span>My Account</span>
+                  </Link>
+                </DropdownMenuItem>
+                 <DropdownMenuItem asChild>
+                   <Link href="/loyalty">
+                    <Award className="mr-2 h-4 w-4" />
+                    <span>My Rewards</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
