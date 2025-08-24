@@ -1,7 +1,7 @@
 
 "use client";
 
-import { notFound } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
 import Image from "next/image";
 import { Star, CheckCircle, ShieldCheck, Heart } from "lucide-react";
 import { products } from "@/lib/data";
@@ -35,6 +35,7 @@ type ProductPageProps = {
 
 export default function ProductPage({ params: paramsPromise, onAddToWishlist, onAddToCart }: ProductPageProps) {
   const params = React.use(paramsPromise);
+  const router = useRouter();
   const slug = params.slug;
   const product = products.find((p) => p.slug === slug);
 
@@ -42,9 +43,10 @@ export default function ProductPage({ params: paramsPromise, onAddToWishlist, on
     notFound();
   }
 
-  const handleAddToCartClick = () => {
+  const handleBuyNowClick = () => {
     if (onAddToCart) {
       onAddToCart(product);
+      router.push('/checkout');
     }
   };
 
@@ -120,9 +122,9 @@ export default function ProductPage({ params: paramsPromise, onAddToWishlist, on
               size="lg"
               className="w-full"
               variant="default"
-              onClick={handleAddToCartClick}
+              onClick={handleBuyNowClick}
             >
-              Add to Cart
+              Buy Now
             </Button>
             <Button size="lg" variant="outline" className="px-4" onClick={onWishlistClick}>
               <Heart className="h-6 w-6" />

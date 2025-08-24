@@ -81,7 +81,7 @@ export function ProductCard({ product, onAddToWishlist, onAddToCart }: ProductCa
         <CardFooter className="p-4 pt-0 mt-auto flex justify-between items-center">
           <p className="text-xl font-bold font-headline text-primary">${product.price.toFixed(2)}</p>
            <Button size="sm" variant="secondary" onClick={handleAddToCartClick}>
-             <ShoppingCart className="mr-2"/>
+             <ShoppingCart className="mr-2 h-4 w-4"/>
             Add to Cart
           </Button>
         </CardFooter>
