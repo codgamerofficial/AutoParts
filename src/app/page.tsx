@@ -1,13 +1,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Users, Star, Truck, Undo, Lock, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { categories, products } from "@/lib/data";
 import { ProductCard } from "@/components/shop/ProductCard";
 import type { Product } from "@/lib/types";
 import { BrandSlider } from "@/components/layout/BrandSlider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface HomePageProps {
   onAddToWishlist: (product: Product) => void;
@@ -20,35 +21,71 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16">
       {/* Hero Section */}
-      <section className="relative h-[65vh] flex items-center justify-center text-center text-white">
-        <Image
-          src="https://i.ibb.co/d0H3jkCg/homethumb.jpg"
-          alt="Modern sports car"
-          fill
-          objectFit="cover"
-          className="z-0 brightness-50"
-          data-ai-hint="modern car"
-          priority
-        />
-        <div className="relative z-10 p-4 container">
-          <h1 className="text-4xl md:text-6xl font-extrabold font-headline animate-fade-in-up">
-            Find the Right Part, Right Now
+      <section className="bg-card py-20 lg:py-28">
+        <div className="container px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
+            Find the Right Parts for Your Vehicle
           </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-200 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            High-quality auto parts from brands you trust. Fast shipping, great prices.
+          <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">
+            Premium OEM and aftermarket auto parts with fast shipping, expert support, and guaranteed fitment.
           </p>
-          <div className="mt-8 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            <div className="relative">
-              <Input
-                placeholder="Search by part name, number, or vehicle..."
-                className="h-12 text-base sm:text-lg pl-5 pr-28 sm:pr-32 text-foreground"
-              />
-              <Button className="absolute right-2 top-1/2 -translate-y-1/2" size="sm" variant="accent">
-                <Search className="h-4 w-4 md:mr-2" />
-                <span className="hidden md:inline">Search</span>
-              </Button>
+
+          <Card className="max-w-4xl mx-auto mt-10 p-6 text-left shadow-2xl">
+            <CardContent className="p-0">
+               <p className="font-headline font-semibold text-lg mb-4">Find Parts for Your Vehicle</p>
+               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <Select>
+                      <SelectTrigger><SelectValue placeholder="Select Year" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="2024">2024</SelectItem>
+                        <SelectItem value="2023">2023</SelectItem>
+                        <SelectItem value="2022">2022</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Select>
+                      <SelectTrigger><SelectValue placeholder="Select Make" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="ford">Ford</SelectItem>
+                        <SelectItem value="toyota">Toyota</SelectItem>
+                        <SelectItem value="honda">Honda</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Select>
+                      <SelectTrigger><SelectValue placeholder="Select Model" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="f150">F-150</SelectItem>
+                        <SelectItem value="camry">Camry</SelectItem>
+                        <SelectItem value="civic">Civic</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <Button size="lg" className="w-full h-auto text-base">Find Parts</Button>
+               </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="container -mt-28 lg:-mt-32">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            <div className="bg-background rounded-lg shadow-lg p-4 flex items-center gap-3">
+                <ShieldCheck className="h-6 w-6 text-primary"/>
+                <span className="font-semibold">Guaranteed Fitment</span>
             </div>
-          </div>
+            <div className="bg-background rounded-lg shadow-lg p-4 flex items-center gap-3">
+                <Users className="h-6 w-6 text-primary"/>
+                <span className="font-semibold">Expert Support</span>
+            </div>
+            <div className="bg-background rounded-lg shadow-lg p-4 flex items-center gap-3">
+                <Star className="h-6 w-6 text-primary fill-primary"/>
+                <span className="font-semibold">4.8/5 Rating</span>
+            </div>
+            <div className="bg-background rounded-lg shadow-lg p-4 flex items-center gap-3">
+                <Truck className="h-6 w-6 text-primary"/>
+                <span className="font-semibold">Free Shipping over $99</span>
+            </div>
         </div>
       </section>
 
@@ -97,7 +134,7 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       </section>
       
       {/* Brand Slider Section */}
-      <section className="bg-card py-16">
+      <section className="bg-muted py-16">
         <div className="container mx-auto">
            <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold font-headline">Trusted Premium Brands</h2>
@@ -110,29 +147,27 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="bg-background">
-        <div className="container px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold font-headline">Why Choose AutoParts.com?</h2>
-            <p className="text-muted-foreground mt-2">
-              We are committed to providing you with the best experience.
-            </p>
+      <section className="container px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div className="p-6 flex flex-col items-center">
+              <Undo className="h-10 w-10 text-primary mb-3"/>
+              <h3 className="text-xl font-bold font-headline">30-Day Returns</h3>
+              <p className="mt-2 text-muted-foreground text-sm">Easy returns & exchanges</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-              <div className="p-6">
-                  <h3 className="text-xl font-bold font-headline text-primary">Quality Guarantee</h3>
-                  <p className="mt-2 text-muted-foreground">Every part we sell is tested for quality and durability, so you can shop with confidence.</p>
-              </div>
-              <div className="p-6">
-                  <h3 className="text-xl font-bold font-headline text-primary">Expert Support</h3>
-                  <p className="mt-2 text-muted-foreground">Our team of experienced auto experts is here to help you find the right part for your vehicle.</p>
-              </div>
-              <div className="p-6">
-                  <h3 className="text-xl font-bold font-headline text-primary">Fast Shipping</h3>
-                  <p className="mt-2 text-muted-foreground">We offer fast, reliable shipping to get you back on the road as quickly as possible.</p>
-              </div>
+          <div className="p-6 flex flex-col items-center">
+              <Lock className="h-10 w-10 text-primary mb-3"/>
+              <h3 className="text-xl font-bold font-headline">Secure Checkout</h3>
+              <p className="mt-2 text-muted-foreground text-sm">SSL encrypted payments</p>
           </div>
-        </div>
+          <div className="p-6 flex flex-col items-center">
+               <Truck className="h-10 w-10 text-primary mb-3"/>
+              <h3 className="text-xl font-bold font-headline">Fast Shipping</h3>
+              <p className="mt-2 text-muted-foreground text-sm">On orders over $99</p>
+          </div>
+           <div className="p-6 flex flex-col items-center">
+               <Phone className="h-10 w-10 text-primary mb-3"/>
+              <h3 className="text-xl font-bold font-headline">Expert Support</h3>
+              <p className="mt-2 text-muted-foreground text-sm">Call 1-800-AUTOPARTS</p>
+          </div>
       </section>
     </div>
   );
