@@ -96,6 +96,7 @@ export default function RootLayout({
 
   const handleUpdateCartQuantity = (productId: string, quantity: number) => {
     const newQuantity = Math.max(1, quantity);
+    if (isNaN(newQuantity)) return;
     setCartItems(prev =>
       prev.map(item =>
         item.id === productId ? { ...item, quantity: newQuantity } : item
@@ -123,6 +124,10 @@ export default function RootLayout({
 
   const totalCartItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
@@ -136,8 +141,8 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
           <SplashScreen isVisible={isSplashing} />
