@@ -21,18 +21,30 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16">
       {/* Hero Section */}
-      <section className="bg-card py-20 lg:py-28">
-        <div className="container px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
-            Find the Right Parts for Your Vehicle
-          </h1>
-          <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground">
-            Premium OEM and aftermarket auto parts with fast shipping, expert support, and guaranteed fitment.
-          </p>
+       <section className="relative py-20 lg:py-28 text-white overflow-hidden">
+        <div className="absolute inset-0">
+            <Image
+                src="https://i.ibb.co/1f7ff5tH/homethumb.jpg"
+                alt="Car engine bay"
+                fill
+                className="object-cover"
+                priority
+            />
+            <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="container relative px-4 sm:px-6 lg:px-8 text-center">
+            <div className="animate-fade-in-up">
+              <h1 className="text-4xl md:text-6xl font-extrabold font-headline">
+                Find the Right Parts for Your Vehicle
+              </h1>
+              <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-white/90">
+                Premium OEM and aftermarket auto parts with fast shipping, expert support, and guaranteed fitment.
+              </p>
+            </div>
 
-          <Card className="max-w-4xl mx-auto mt-10 p-6 text-left shadow-2xl">
+          <Card className="max-w-4xl mx-auto mt-10 p-6 text-left shadow-2xl bg-card/80 backdrop-blur-sm border-white/20 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <CardContent className="p-0">
-               <p className="font-headline font-semibold text-lg mb-4">Find Parts for Your Vehicle</p>
+               <p className="font-headline font-semibold text-lg mb-4 text-card-foreground">Find Parts for Your Vehicle</p>
                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div className="md:col-span-3 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <Select>
@@ -68,7 +80,7 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
       </section>
 
       {/* Features Section */}
-      <section className="container -mt-28 lg:-mt-32">
+      <section className="container -mt-20 lg:-mt-24 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
             <div className="bg-background rounded-lg shadow-lg p-4 flex items-center gap-3">
                 <ShieldCheck className="h-6 w-6 text-primary"/>
