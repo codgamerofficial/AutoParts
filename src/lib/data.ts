@@ -1,16 +1,17 @@
 
 import type { Product, Category } from './types';
-import { Cog, Car, Zap, Wind, Snowflake, Filter, Lightbulb, GitBranch } from 'lucide-react';
+import { Cog, Car, Zap, Wind, Snowflake, Filter, Lightbulb, GitBranch, Battery, Wrench } from 'lucide-react';
 
 export const categories: Category[] = [
   { id: 'cat-01', name: 'Engine Parts', slug: 'engine-parts', icon: Cog, description: 'Keep your engine running smoothly with our high-quality parts.' },
   { id: 'cat-02', name: 'Brakes', slug: 'brakes', icon: Car, description: 'Ensure your safety with our reliable brake pads, rotors, and calipers.' },
-  { id: 'cat-03', name: 'Suspension', slug: 'suspension', icon: Zap, description: 'Improve your ride comfort and handling with our suspension components.' },
+  { id: 'cat-03', name: 'Suspension', slug: 'suspension', icon: Wrench, description: 'Improve your ride comfort and handling with our suspension components.' },
   { id: 'cat-04', name: 'Exhaust Systems', slug: 'exhaust-systems', icon: Wind, description: 'Upgrade your performance and sound with our exhaust systems.' },
   { id: 'cat-05', name: 'Cooling', slug: 'cooling', icon: Snowflake, description: 'Prevent overheating with our radiators, water pumps, and thermostats.' },
   { id: 'cat-06', name: 'Filters', slug: 'filters', icon: Filter, description: 'Maintain your vehicle\'s health with our range of oil, air, and fuel filters.' },
   { id: 'cat-07', name: 'Lighting', slug: 'lighting', icon: Lightbulb, description: 'See and be seen with our premium automotive lighting solutions.' },
   { id: 'cat-08', name: 'Transmission', slug: 'transmission', icon: GitBranch, description: 'Ensure smooth gear shifts with our quality transmission parts.' },
+  { id: 'cat-09', name: 'Electrical', slug: 'electrical', icon: Zap, description: 'Power your vehicle with our reliable electrical parts, including batteries and alternators.' },
 ];
 
 export const products: Product[] = [
@@ -187,6 +188,48 @@ export const products: Product[] = [
     reviews: [],
     rating: 4.6,
     stock: 45,
+  },
+  {
+    id: 'P-013',
+    name: 'ACDelco Professional AGM Battery',
+    slug: 'acdelco-agm-battery',
+    description: 'Reliable starting power in all weather conditions. This AGM battery is designed for vehicles with high electrical demands.',
+    price: 210.99,
+    category: 'Electrical',
+    brand: 'ACDelco',
+    images: ['https://placehold.co/600x600.png'],
+    specs: { 'Group Size': '35', 'CCA': '650', 'Technology': 'AGM (Absorbent Glass Mat)' },
+    reviews: [],
+    rating: 4.7,
+    stock: 60,
+  },
+  {
+    id: 'P-014',
+    name: 'Moog Problem Solver Tie Rod End',
+    slug: 'moog-tie-rod-end',
+    description: 'Restore precise steering and handling with this durable tie rod end from Moog. Features a patented cover plate design for increased durability.',
+    price: 45.50,
+    category: 'Suspension',
+    brand: 'Moog',
+    images: ['https://placehold.co/600x600.png'],
+    specs: { 'Position': 'Outer', 'Greasable': 'Yes', 'Construction': 'Hardened Steel' },
+    reviews: [],
+    rating: 4.8,
+    stock: 110,
+  },
+  {
+    id: 'P-015',
+    name: 'Fel-Pro PermaDryPlus Valve Cover Gasket Set',
+    slug: 'fel-pro-valve-cover-gasket',
+    description: 'Stop oil leaks with this premium valve cover gasket set. Made from proprietary rubber compounds to ensure a long-lasting, reliable seal.',
+    price: 28.75,
+    category: 'Engine Parts',
+    brand: 'Fel-Pro',
+    images: ['https://placehold.co/600x600.png'],
+    specs: { 'Material': 'Molded Rubber', 'Includes': 'Gasket and Grommets', 'Application': 'Vehicle Specific' },
+    reviews: [],
+    rating: 4.9,
+    stock: 250,
   },
 ];
 
