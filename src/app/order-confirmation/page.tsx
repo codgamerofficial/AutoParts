@@ -10,10 +10,10 @@ import { Separator } from '@/components/ui/separator';
 import { products } from '@/lib/data';
 
 export default function OrderConfirmationPage() {
-  const [orderId, setOrderId] = useState('');
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
-    // Generate a random mock order ID
+    // Generate a random mock order ID only on the client side
     setOrderId(`ORD-${Math.floor(Math.random() * 90000) + 10000}`);
   }, []);
 
@@ -35,9 +35,11 @@ export default function OrderConfirmationPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-center bg-muted p-3 rounded-md mb-6">
-            <p className="text-sm">Your Order ID is: <span className="font-bold text-primary">{orderId}</span></p>
-          </div>
+          {orderId && (
+            <div className="text-center bg-muted p-3 rounded-md mb-6">
+              <p className="text-sm">Your Order ID is: <span className="font-bold text-primary">{orderId}</span></p>
+            </div>
+          )}
 
           <div className="space-y-4">
             <h3 className="font-headline text-xl font-semibold">Order Summary</h3>
