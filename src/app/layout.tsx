@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import type { Product, CartItem } from '@/lib/types';
 import { products } from '@/lib/data';
 import { useToast } from "@/hooks/use-toast";
+import { ThemeProvider } from '@/components/layout/ThemeProvider';
 
 export default function RootLayout({
   children,
@@ -123,7 +124,7 @@ export default function RootLayout({
   const totalCartItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <title>AutoParts.com - Quality Auto Parts</title>
         <meta name="description" content="Your reliable source for high-quality auto parts and accessories." />
@@ -133,26 +134,33 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased">
-        <SplashScreen isVisible={isSplashing} />
-        {!isSplashing && (
-          <>
-            <AuthModal 
-              isOpen={isAuthModalOpen} 
-              onOpenChange={setIsAuthModalOpen}
-              onLoginSuccess={handleLoginSuccess}
-            />
-            <div className="flex flex-col min-h-screen bg-background">
-              <Header 
-                user={user} 
-                onLogout={handleLogout} 
-                onLoginClick={() => setIsAuthModalOpen(true)}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SplashScreen isVisible={isSplashing} />
+          {!isSplashing && (
+            <>
+              <AuthModal 
+                isOpen={isAuthModalOpen} 
+                onOpenChange={setIsAuthModalOpen}
+                onLoginSuccess={handleLoginSuccess}
               />
-              <main className="flex-grow">{childrenWithProps}</main>
-              <Footer />
-            </div>
-          </>
-        )}
-        <Toaster />
+              <div className="flex flex-col min-h-screen bg-background">
+                <Header 
+                  user={user} 
+                  onLogout={handleLogout} 
+                  onLoginClick={() => setIsAuthModalOpen(true)}
+                />
+                <main className="flex-grow">{childrenWithProps}</main>
+                <Footer />
+              </div>
+            </>
+          )}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
