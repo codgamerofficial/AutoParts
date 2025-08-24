@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Search,
   ShoppingCart,
@@ -31,9 +32,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTheme } from "next-themes";
 import { ThemeToggle } from "./ThemeToggle";
+import { products } from "@/lib/data";
+import type { Product } from "@/lib/types";
+import { SearchResults } from "@/components/search/SearchResults";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -53,6 +58,45 @@ interface HeaderProps {
 
 export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
   const { setTheme } = useTheme();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (searchQuery.trim().length > 1) {
+      const lowercasedQuery = searchQuery.toLowerCase();
+      const results = products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(lowercasedQuery) ||
+          product.brand.toLowerCase().includes(lowercasedQuery) ||
+          product.category.toLowerCase().includes(lowercasedQuery)
+      );
+      setSearchResults(results);
+      setIsPopoverOpen(true);
+    } else {
+      setSearchResults([]);
+      setIsPopoverOpen(false);
+    }
+  }, [searchQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setIsPopoverOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleResultClick = () => {
+    setIsPopoverOpen(false);
+    setSearchQuery("");
+  }
+  
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -110,14 +154,24 @@ export function Header({ user, onLogout, onLoginClick }: HeaderProps) {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-1 sm:space-x-2">
-          <div className="flex-1 sm:max-w-xs ml-auto">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search parts..."
-                className="pl-9 h-9"
-              />
-            </div>
+          <div className="flex-1 sm:max-w-xs ml-auto" ref={searchRef}>
+             <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                <PopoverTrigger asChild className="w-full">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search parts..."
+                      className="pl-9 h-9"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onFocus={() => searchQuery.length > 1 && setIsPopoverOpen(true)}
+                    />
+                  </div>
+                </PopoverTrigger>
+                 <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
+                   <SearchResults results={searchResults} onResultClick={handleResultClick} />
+                </PopoverContent>
+              </Popover>
           </div>
           <ThemeToggle />
           <Button variant="ghost" size="icon" asChild>
