@@ -34,3 +34,5 @@ export type Category = {
   icon: LucideIcon;
   description: string;
 };
+
+    
