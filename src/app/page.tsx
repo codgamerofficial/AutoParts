@@ -17,6 +17,7 @@ interface HomePageProps {
 
 export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
+  const years = Array.from({ length: 26 }, (_, i) => 2025 - i); // 2025 down to 2000
 
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16">
@@ -50,9 +51,9 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
                     <Select>
                       <SelectTrigger><SelectValue placeholder="Select Year" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="2024">2024</SelectItem>
-                        <SelectItem value="2023">2023</SelectItem>
-                        <SelectItem value="2022">2022</SelectItem>
+                        {years.map((year) => (
+                          <SelectItem key={year} value={String(year)}>{year}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <Select>
