@@ -47,6 +47,7 @@ const navLinks = [
   { href: "/loyalty", label: "Loyalty" },
   { href: "/blog", label: "Blog" },
   { href: "/support", label: "Support" },
+  { href: "/admin", label: "Admin" },
 ];
 
 interface HeaderProps {
