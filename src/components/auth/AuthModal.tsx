@@ -86,7 +86,7 @@ export function AuthModal({ isOpen, onOpenChange, onLoginSuccess }: AuthModalPro
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader className="text-center">
-           <DialogTitle asChild>
+          <DialogTitle>
             <VisuallyHidden>
               Account Authentication
             </VisuallyHidden>
