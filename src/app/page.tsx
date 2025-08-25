@@ -18,7 +18,7 @@ interface HomePageProps {
 export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
   const featuredProducts = products.slice(0, 4);
   const years = Array.from({ length: 26 }, (_, i) => 2025 - i); // 2025 down to 2000
-  const brands = [...new Set(products.map((p) => p.brand))].sort();
+  const brands = ["Audi", "BMW", "Chevrolet", "Ford", "Honda", "Mercedes-Benz", "Nissan", "Toyota"];
 
   return (
     <div className="space-y-16 sm:space-y-20 lg:space-y-24 pb-16">
@@ -68,9 +68,15 @@ export default function Home({ onAddToWishlist, onAddToCart }: HomePageProps) {
                     <Select>
                       <SelectTrigger><SelectValue placeholder="Select Model" /></SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="f150">F-150</SelectItem>
+                        <SelectItem value="accord">Accord</SelectItem>
                         <SelectItem value="camry">Camry</SelectItem>
                         <SelectItem value="civic">Civic</SelectItem>
+                        <SelectItem value="corolla">Corolla</SelectItem>
+                        <SelectItem value="cr-v">CR-V</SelectItem>
+                        <SelectItem value="f-150">F-150</SelectItem>
+                        <SelectItem value="rav4">RAV4</SelectItem>
+                        <SelectItem value="silverado">Silverado</SelectItem>
+                        <SelectItem value="tahoe">Tahoe</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
