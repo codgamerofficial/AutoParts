@@ -17,14 +17,12 @@ export default function AppProviders({
 }) {
   const { toast } = useToast();
   const [isSplashing, setIsSplashing] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState<{name: string} | null>(null);
   const [wishlist, setWishlist] = useState<Product[]>([]);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    setIsMounted(true);
     const splashTimer = setTimeout(() => {
       setIsSplashing(false);
     }, 2000); // Splash screen will be visible for 2 seconds
@@ -116,31 +114,23 @@ export default function AppProviders({
     return child;
   });
 
-  if (!isMounted) {
-    return null;
-  }
-
   return (
     <>
       <SplashScreen isVisible={isSplashing} />
-      {!isSplashing && (
-        <>
-          <AuthModal 
-            isOpen={isAuthModalOpen} 
-            onOpenChange={setIsAuthModalOpen}
-            onLoginSuccess={handleLoginSuccess}
-          />
-          <div className="flex flex-col min-h-screen bg-background">
-            <Header 
-              user={user} 
-              onLogout={handleLogout} 
-              onLoginClick={() => setIsAuthModalOpen(true)}
-            />
-            <main className="flex-grow">{childrenWithProps}</main>
-            <Footer />
-          </div>
-        </>
-      )}
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onOpenChange={setIsAuthModalOpen}
+        onLoginSuccess={handleLoginSuccess}
+      />
+      <div className={`flex flex-col min-h-screen bg-background ${isSplashing ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-opacity duration-300`}>
+        <Header 
+          user={user} 
+          onLogout={handleLogout} 
+          onLoginClick={() => setIsAuthModalOpen(true)}
+        />
+        <main className="flex-grow">{childrenWithProps}</main>
+        <Footer />
+      </div>
     </>
   );
 }
